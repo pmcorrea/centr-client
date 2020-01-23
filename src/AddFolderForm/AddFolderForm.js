@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './AddFolderForm.css'
 import {MainContext} from '../MainContext.js'
+import config from '../config'
 
 export default class AddFolderForm extends Component {
   static contextType = MainContext;
@@ -27,7 +28,7 @@ export default class AddFolderForm extends Component {
 		this.context.addFolder(folder);
 		// this.props.history.push('/');
 
-		fetch('http://localhost:5000/folders', {
+		fetch(`${config.API_ENDPOINT}/folders`, {
 			method: 'POST',
 			headers: {
 					'content-type': 'application/json'

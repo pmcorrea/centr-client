@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './AddNoteForm.css'
 import {MainContext} from '../MainContext.js'
+import config from '../config'
 
 export default class AddNoteForm extends Component {
   static contextType = MainContext;
@@ -43,7 +44,7 @@ export default class AddNoteForm extends Component {
 	  this.context.addNote(note);
 	//   this.props.history.push('/');
 
-	  fetch('http://localhost:5000/notes', {
+	  fetch(`${config.API_ENDPOINT}/notes`, {
 		method: 'POST',
 		headers: {
 				'content-type': 'application/json'
