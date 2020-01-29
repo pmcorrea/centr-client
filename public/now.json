@@ -1,0 +1,10 @@
+{
+	"version": 2,
+	"name": "noteful",
+	"alias": "pmcorrea-noteful",
+	"routes": [
+		{ "handle": "filesystem" },
+		{ "src": "/.*", "dest": "/index.html" }
+	]
+  }
+  

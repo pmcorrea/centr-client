@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import CircleButton from '../CircleButton/CircleButton'
-import { countNotesForFolder } from '../notes-helpers'
+import CircleButton from '../../components/CircleButton/CircleButton'
+import { countNotesForFolder } from '../../services/notes-helpers'
 import './NoteListNav.css'
-import {MainContext} from '../MainContext.js'
+import MainContext from '../../contexts/MainContext.js'
+
 
 export default class NoteListNav extends Component {
 
@@ -26,7 +27,7 @@ export default class NoteListNav extends Component {
     return (
       <div className='NoteListNav'>
         <ul className='NoteListNav__list'>
-          {this.props.folders.map(folder =>
+          {this.context.folders.map(folder =>
             <li key={folder.id} className='NoteListNav__li_element'>
               <NavLink
                 className='NoteListNav__folder-link'
@@ -35,7 +36,7 @@ export default class NoteListNav extends Component {
                {folder.folder_name}
   
                <span className='NoteListNav__num-notes'>
-                    {countNotesForFolder(this.props.notes, folder.folder_id)}
+                    {countNotesForFolder(this.context.notes, folder.folder_id)}
                 </span>
               </NavLink>
               <button className='Folder__delete' type='button' onClick={() => this.handleDeleteFolder(folder.folder_id)}>

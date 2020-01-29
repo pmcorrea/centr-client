@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './AddFolderForm.css'
-import {MainContext} from '../MainContext.js'
-import config from '../config'
+import MainContext from '../../contexts/MainContext';
+import config from '../../config'
+import TokenService from '../../services/token-service'
 
 export default class AddFolderForm extends Component {
   static contextType = MainContext;
@@ -26,12 +27,12 @@ export default class AddFolderForm extends Component {
     	event.preventDefault();
 		const folder  = this.state;
 		this.context.addFolder(folder);
-		// this.props.history.push('/');
 
 		fetch(`${config.API_ENDPOINT}/folders`, {
 			method: 'POST',
 			headers: {
-					'content-type': 'application/json'
+					'content-type': 'application/json',
+					'authorization': `bearer ${TokenService.getAuthToken()}`,
 			},
 			body: JSON.stringify({
 				folder

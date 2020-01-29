@@ -1,115 +1,121 @@
+// Libraries
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Redirect} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import NoteListNav from '../NoteListNav/NoteListNav';
-import NotePageNav from '../NotePageNav/NotePageNav';
-import NoteListMain from '../NoteListMain/NoteListMain';
-import NotePageMain from '../NotePageMain/NotePageMain';
-import AddFolderForm from '../AddFolderForm/AddFolderForm';
-import AddNoteForm from '../AddNoteForm/AddNoteForm';
-// import dummyStore from '../dummy-store';
-import {MainContext} from '../MainContext'
-import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
-import './App.css';
-import config from '../config'
 
-class App extends Component {
-    state = {
-        notes: [],
-        folders: []
+// Components 
+import LoginPage from '../routes/LoginPage/LoginPage';
+import NoteListNav from '../routes/NoteListNav/NoteListNav';
+import NoteListMain from '../routes/NoteListMain/NoteListMain';
+import NotePageNav from '../routes/NotePageNav/NotePageNav';
+import NotePageMain from '../routes/NotePageMain/NotePageMain';
+import AddFolderForm from '../components/AddFolderForm/AddFolderForm';
+import AddNoteForm from '../components/AddNoteForm/AddNoteForm';
+import RegisterPage from '../components/RegisterPage/RegisterPage';
+
+// Contexts
+import MainContext from '../contexts/MainContext';
+
+// Helpers, service, and variables
+import TokenService from '../services/token-service';
+import {notesService} from '../services/notes-service';
+import config from '../config';
+
+// Style
+import './App.css';
+
+export default class App extends Component {
+
+    constructor(){
+        super();
+        this.state = {
+            folders: [],
+            notes: [],
+            both: false,
+            authToken: null,
+            setAuthToken: authToken => this.setState({authToken}),
+
+            setNotes: notes => {
+                this.setState({ notes }, this.state.ifBoth)
+            },    
+            setFolders: folders => {
+                this.setState({ folders }, this.state.ifBoth)
+            },
+            ifBoth: () => {
+                if (this.state.authToken) {
+                    this.setState({ both: !this.state.both})
+                }
+            },
+            handleDeleteNote: noteId => {
+                fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        "Authorization": `bearer ${TokenService.getAuthToken()}`
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.status)
+                    }
+                    return response.json()
+                })
+                .then(noteId => {
+                    this.setState({
+                        notes: this.state.notes.filter(note => note.note_id !== noteId)
+                    })
+                })
+                .catch(error => this.setState({error}))
+            },
+            handleDeleteFolder: folderId => {
+                fetch(`${config.API_ENDPOINT}/folders/${folderId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        "Authorization": `bearer ${TokenService.getAuthToken()}`
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.status)
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    // console.log(data)
+                    return data
+                })
+                .then(data => {
+                    this.setState({
+                        folders: data
+                    })
+                })
+                .then(data => {
+                    this.setState({
+                        notes: this.state.notes.filter(note => note.folder_id !== folderId)
+                    });
+                })
+                .catch(error => this.setState({error}))
+            },        
+            addFolder: folder => {
+                this.setState({
+                    folders: [...this.state.folders, folder]
+                })
+            },
+            addNote: note => {
+                this.setState({
+                    notes: [...this.state.notes, note]
+                })
+            }
+        }
     }
 
     componentDidMount() {
-        fetch(`${config.API_ENDPOINT}/folders`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(response.status)
-                }
-                return response.json()
-            })
-            .then(myJson => {
-                this.setState({
-                    folders: myJson
-                })
-            })
-            .catch(error => this.setState({error}))
-
-        fetch(`${config.API_ENDPOINT}/notes`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(response.status)
-                }
-                return response.json()
-            })
-            .then(myJson => {
-                this.setState({
-                    notes: myJson
-                })
-            })
-            .catch(error => this.setState({error}))
+        const authToken = window.localStorage.getItem(config.TOKEN_KEY);
+        this.state.setAuthToken(authToken);
+        this.state.ifBoth();
     }
 
-    // Context Methods
-    handleDeleteNote = noteId => {
-        this.setState({
-            notes: this.state.notes.filter(note => note.note_id !== noteId)
-        });
-
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
-            method: 'DELETE'
-	    })
-		.then(response => {
-			if (!response.ok) {
-				throw new Error(response.status)
-			}
-			return response.json()
-		})
-		.catch(error => this.setState({error}))
-
-    }
-
-    handleDeleteFolder = folderId => {
-        fetch(`${config.API_ENDPOINT}/folders/${folderId}`, {
-            method: 'DELETE'
-	    })
-		.then(response => {
-			if (!response.ok) {
-				throw new Error(response.status)
-			}
-			return response.json()
-        })
-        .then(data => {
-            // console.log(data)
-            return data
-        })
-        .then(data => {
-            this.setState({
-                folders: data
-            })
-        })
-        .then(data => {
-            this.setState({
-                notes: this.state.notes.filter(note => note.folder_id !== folderId)
-            });
-        })
-		.catch(error => this.setState({error}))
-
-    }
-
-	addFolder = folder => {
-		this.setState({
-			folders: [...this.state.folders, folder]
-		})
-	}
-
-	addNote = note => {
-		this.setState({
-			notes: [...this.state.notes, note]
-		})
-	}
-
+    // Render methods
     renderNavRoutes() {
-        const {notes, folders} = this.state;
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -119,8 +125,6 @@ class App extends Component {
                         path={path}
                         render={routeProps => (
                             <NoteListNav
-                                folders={folders}
-                                notes={notes}
                                 {...routeProps}
                             />
                         )}
@@ -129,10 +133,8 @@ class App extends Component {
                 <Route
                     path="/note/:noteId"
                     render={routeProps => {
-                        const {noteId} = routeProps.match.params;
-                        const note = findNote(notes, noteId) || {};
-                        const folder = findFolder(folders, note.folder_id);
-                        return <NotePageNav {...routeProps} folder={folder} />;
+                        return <NotePageNav {...routeProps} 
+                        />;
                     }}
                 />
                 <Route path="/add-folder" component={NotePageNav} />
@@ -142,7 +144,6 @@ class App extends Component {
     }
 
     renderMainRoutes() {
-        const {notes} = this.state;
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -151,15 +152,14 @@ class App extends Component {
                         key={path}
                         path={path}
                         render={routeProps => {
-                            const {folderId} = routeProps.match.params;
-                            const notesForFolder = getNotesForFolder(
-                                notes,
-                                folderId
-                            );
+                            if (!TokenService.hasAuthToken()) {
+                                return (
+                                <Redirect to="/login"/>
+                                )
+                            }
                             return (
                                 <NoteListMain
                                     {...routeProps}
-                                    notes={notesForFolder}
                                 />
                             );
                         }}
@@ -168,42 +168,69 @@ class App extends Component {
                 <Route
                     path="/note/:noteId"
                     render={routeProps => {
-                        const {noteId} = routeProps.match.params;
-                        const note = findNote(notes, noteId);
-                        return <NotePageMain {...routeProps} note={note} />;
+                        if (!TokenService.hasAuthToken()) {
+                            return (
+                            <Redirect to="/login"/>
+                            )
+                        }
+                        return <NotePageMain {...routeProps} 
+                        />;
                     }}
                 />
-                <Route path="/add-folder" component={AddFolderForm} />
-                <Route path="/add-note" component={AddNoteForm} />
+                
+                <Route 
+                    path="/add-folder" 
+                    render={(routeProps) => {
+                        if (!TokenService.hasAuthToken()) {
+                            return (
+                            <Redirect to="/login"/>
+                            )
+                        }
+                        return <AddFolderForm {...routeProps}/>
+                    }}
+                />
+
+                <Route 
+                    path="/add-note" 
+                    render={(routeProps) => {
+                        if (!TokenService.hasAuthToken()) {
+                            return (
+                            <Redirect to="/login"/>
+                            )
+                        }
+                        return <AddNoteForm {...routeProps}/>
+                    }}
+                />
+
+                <Route path="/login" component={LoginPage}/>
+                <Route path="/register" component={RegisterPage}/>
             </>
         );
     }
 
     render() {
-        const contextValue = {
-			folders: this.state.folders,
-			notes: this.state.notes,
-            handleDeleteNote: this.handleDeleteNote,
-            handleDeleteFolder: this.handleDeleteFolder,
-			addFolder: this.addFolder,
-			addNote: this.addNote,
-           }
-           
+        
         return (
-            <MainContext.Provider value={contextValue}>
+          <MainContext.Provider value={this.state}>
             <div className="App">
                 <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                
                 <header className="App__header">
                     <h1>
                         <Link to="/">Noteful</Link>{' '}
                         <FontAwesomeIcon icon="check-double" />
                     </h1>
+                    <button className='logout' onClick={() => {
+                        TokenService.clearAuthToken();
+                        this.setState({authToken:null,folders:[],notes:[]})
+                    }}>
+                        <Link to="/login">Log out</Link>
+                    </button>
                 </header>
+
                 <main className="App__main">{this.renderMainRoutes()}</main>
             </div>
-            </MainContext.Provider>
+        </MainContext.Provider>
         );
     }
 }
-
-export default App;

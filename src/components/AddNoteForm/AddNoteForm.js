@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './AddNoteForm.css'
-import {MainContext} from '../MainContext.js'
-import config from '../config'
+import MainContext from '../../contexts/MainContext';
+import config from '../../config'
+import TokenService from '../../services/token-service'
 
 export default class AddNoteForm extends Component {
   static contextType = MainContext;
@@ -47,7 +48,8 @@ export default class AddNoteForm extends Component {
 	  fetch(`${config.API_ENDPOINT}/notes`, {
 		method: 'POST',
 		headers: {
-				'content-type': 'application/json'
+				'content-type': 'application/json',
+				'authorization': `bearer ${TokenService.getAuthToken()}`,
 		},
 		body: JSON.stringify({
 			note
