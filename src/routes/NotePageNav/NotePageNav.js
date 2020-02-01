@@ -13,9 +13,8 @@ export default class NotePageNav extends Component {
     const params = this.props.match.params.noteId;
     let notes = this.context.notes
     let folders = this.context.folders
-    let note = folders ? findNote(notes, params) : {};
+    let note = folders ? findNote(notes, parseInt(params)) : {};
     let folder = note ?  findFolder(folders, note.folder_id) : {};
-    
 
     return (
       <div className='NotePageNav'>

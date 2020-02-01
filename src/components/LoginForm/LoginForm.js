@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TokenService from "../../services/token-service";
+import TokenHelpers from "../../services/token-helpers";
 import AuthApiService from "../../services/auth-api-service";
 import { Button, Input } from "../../Utils/Utils";
 import MainContext from "../../contexts/MainContext";
@@ -26,10 +26,10 @@ export default class LoginForm extends Component {
       .then(res => {
         user_name.value = "";
         password.value = "";
-        TokenService.saveAuthToken(res.authToken);
-        this.context.setAuthToken(res.authToken);
-        this.context.setFolders(res.result[0]['folders'])
-        this.context.setNotes(res.result[0]['notes'])
+        TokenHelpers.saveAuthToken(res['authToken']);
+        this.context.setAuthToken(res['authToken']);
+        this.context.setFolders(res['folders'])
+        this.context.setNotes(res['notes'])
         this.props.onLoginSuccess();
       })
       .catch(res => {

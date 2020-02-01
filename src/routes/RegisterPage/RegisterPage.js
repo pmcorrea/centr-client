@@ -13,25 +13,29 @@ export default class RegisterPage extends Component {
 		error: null,
 		user_name: null,
 		password: null,
+		visibility: 'Private'
 	};
+
+	onRegisterSuccess = () => {
+		this.props.history.push("/");
+	}
 
 	handleRegister(e) {
 		e.preventDefault()
 		this.setState({ error: null })
-		const {user_name, password} = this.state
-		console.log(user_name, password)
+		const {user_name, password, visibility} = this.state
 
 		AuthApiService.postRegister({
 			user_name: user_name, 
 			password: password,
+			visibility: visibility
 		})
-			.then(res => {
-				// select folders and notes
-				this.setState({user_name: null, password: null}, console.log(res))
-			})
-			.catch(res => {
-				this.setState({ error: res.error });
-			})
+		.then(res => {
+			this.onRegisterSuccess();
+		})
+		.catch(res => {
+			this.setState({ error: res.error });
+		})
 	}
 
 	setUsername(username) {
@@ -55,7 +59,7 @@ export default class RegisterPage extends Component {
 
 				<div className="user_name">
 					<label htmlFor="LoginForm__user_name">User name</label>
-					<Input required name="user_name" id="LoginForm__user_name" value={this.state.user_name} onChange={e => this.setUsername(e.target.value)}></Input>
+					<Input required name="user_name" id="LoginForm__user_name" onChange={e => this.setUsername(e.target.value)}></Input>
 				</div>
 
 				<div className="password">
@@ -65,15 +69,13 @@ export default class RegisterPage extends Component {
 					name="password"
 					type="password"
 					id="LoginForm__password"
-					onChange={e => this.setPassword(e.target.value)}
-					// value={this.state.password} 
+					onChange={e => this.setPassword(e.target.value)} 
 				></Input>
 				<Input
 					required
 					name="password_confirm"
 					type="password"
 					id="LoginForm__password_confirm"
-					// value={this.state.password}
 				></Input>
 				</div>
 

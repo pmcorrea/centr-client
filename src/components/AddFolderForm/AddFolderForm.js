@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './AddFolderForm.css'
 import MainContext from '../../contexts/MainContext';
 import config from '../../config'
-import TokenService from '../../services/token-service'
+import TokenHelpers from '../../services/token-helpers'
 
 export default class AddFolderForm extends Component {
   static contextType = MainContext;
@@ -10,15 +10,12 @@ export default class AddFolderForm extends Component {
 	constructor(props) {
     super(props);
 	this.state = {
-		id: '',
-		folder_id: Math.random().toString(36).substr(2, 9),
 		folder_name: '',
     }
   }
 
 	updateFolderName(input) {
 		this.setState({
-			id: this.context.folders.length + 1,
 			folder_name: input,
 		});
 	}
@@ -26,26 +23,29 @@ export default class AddFolderForm extends Component {
 	handleSubmit(event) {
     	event.preventDefault();
 		const folder  = this.state;
-		this.context.addFolder(folder);
 
 		fetch(`${config.API_ENDPOINT}/folders`, {
 			method: 'POST',
 			headers: {
 					'content-type': 'application/json',
-					'authorization': `bearer ${TokenService.getAuthToken()}`,
+					'authorization': `bearer ${TokenHelpers.getAuthToken()}`,
 			},
 			body: JSON.stringify({
 				folder
 			})
 		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error(response.status)
-				}
-				return response.json()
-			})
-			.then(this.props.history.push('/'))
-			.catch(error => this.setState({error}))
+		.then(response => {
+			if (!response.ok) {
+				throw new Error(response.status)
+			}
+			return response.json()
+		})
+		.then(result => {
+			// return full folder details and insert into context
+			this.context.addFolder(result[0]);
+		})
+		.then(this.props.history.push('/'))
+		.catch(error => this.setState({error}))
 	}
 
 	validateLength() {

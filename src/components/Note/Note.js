@@ -8,13 +8,9 @@ import MainContext from "../../contexts/MainContext";
 export default class Note extends Component {
   static contextType = MainContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   handleDeleteNote(value) {
     this.context.handleDeleteNote(value);
+    this.context.removeNote(value)
     this.props.history.push("/");
   }
 
@@ -35,7 +31,7 @@ export default class Note extends Component {
           <div className="Note__dates-modified">
             Modified{" "}
             <span className="Date">
-              {format(this.props.modified, "Do MMM YYYY")}
+              {format(this.props.modified.slice(0, 10), "Do MMM")}
             </span>
           </div>
         </div>

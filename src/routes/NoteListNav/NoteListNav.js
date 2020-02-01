@@ -11,54 +11,52 @@ export default class NoteListNav extends Component {
 
   static contextType = MainContext;
 
-  constructor(props){
-    super(props)
-    this.state = {
-
-    }
-  }
-
   handleDeleteFolder(value) {
     this.context.handleDeleteFolder(value)
+    this.context.removeFolder(value)
     this.props.history.push('/')
   }
 
   render() {
-    return (
-      <div className='NoteListNav'>
-        <ul className='NoteListNav__list'>
-          {this.context.folders.map(folder =>
-            <li key={folder.id} className='NoteListNav__li_element'>
+    return this.context.folders ? (
+      <div className="NoteListNav">
+        <ul className="NoteListNav__list">
+          {this.context.folders.map(folder => (
+            <li key={folder.id} className="NoteListNav__li_element">
               <NavLink
-                className='NoteListNav__folder-link'
-                to={`/folder/${folder.folder_id}`}>
-            
-               {folder.folder_name}
-  
-               <span className='NoteListNav__num-notes'>
-                    {countNotesForFolder(this.context.notes, folder.folder_id)}
+                className="NoteListNav__folder-link"
+                to={`/folder/${folder.id}`}
+              >
+                {folder.folder_name}
+
+                <span className="NoteListNav__num-notes">
+                  {countNotesForFolder(this.context.notes, folder.id)}
                 </span>
               </NavLink>
-              <button className='Folder__delete' type='button' onClick={() => this.handleDeleteFolder(folder.folder_id)}>
-                  <FontAwesomeIcon icon='trash-alt' />
+              <button
+                className="Folder__delete"
+                type="button"
+                onClick={() => this.handleDeleteFolder(folder.id)}
+              >
+                <FontAwesomeIcon icon="trash-alt" />
               </button>
             </li>
-          )}
+          ))}
         </ul>
-        <div className='NoteListNav__button-wrapper'>
+        <div className="NoteListNav__button-wrapper">
           <CircleButton
             tag={Link}
-            to='/add-folder'
-            type='button'
-            className='NoteListNav__add-folder-button'
+            to="/add-folder"
+            type="button"
+            className="NoteListNav__add-folder-button"
           >
-            <FontAwesomeIcon icon='plus' />
+            <FontAwesomeIcon icon="plus" />
             <br />
             Folder
           </CircleButton>
         </div>
       </div>
-    )
+    ) : ('');
   }
   
 }

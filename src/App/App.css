@@ -48,6 +48,17 @@
   color: white;
   background-color: gray;
   border: none;
+  /* margin-left: 20px; */
+}
+
+.account {
+  display: inline-block;
+  position: absolute;
+  right: 80px;
+  bottom: 20px;
+  color: white;
+  background-color: gray;
+  border: none;
 }
 
 .logout:hover {
@@ -58,4 +69,13 @@
   color: white;
   background-color: red;
   border: none;
+}
+
+@media screen and (max-width: 450px) {
+  /* .App__nav {
+    background-color: #0b1b32;
+    color: #fff;
+    grid-area: sidebar;
+    overflow: auto;
+  } */
 }

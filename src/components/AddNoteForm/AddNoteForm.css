@@ -46,3 +46,28 @@
   background-color: #29862e;
   color: white;
 }
+
+.Noteful-form button[type="submit"]:disabled {
+  background-color:red;
+  color: white;
+}
+
+@media screen and (max-width: 450px) {
+  .Noteful-form {
+    /* background-color: black; */
+  }
+
+  .Noteful-form input,
+  .Noteful-form select {
+    font-size: 20px;
+    padding: 8px;
+    width: 60vw;
+  }
+
+  .Noteful-form textarea {
+    font-size: 14px;
+    padding: 8px;
+    width: 60vw;
+    height: 40vh;
+  }
+}

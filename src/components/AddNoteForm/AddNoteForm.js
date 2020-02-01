@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './AddNoteForm.css'
 import MainContext from '../../contexts/MainContext';
 import config from '../../config'
-import TokenService from '../../services/token-service'
+import TokenHelpers from '../../services/token-helpers'
 
 export default class AddNoteForm extends Component {
   static contextType = MainContext;
@@ -10,46 +10,57 @@ export default class AddNoteForm extends Component {
   constructor(props) {
   super(props);
   this.state = {
-	  	id: '',
-		note_id: Math.random().toString(36).substr(2, 9),
-		note_name: "",
-		modified: "2019-01-03T00:00:00.000Z",
-		folder_id: "b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1",
-		content: 'blah',
+		folder_id: null,
+		note_name: '',
+		modified: this.makeDate(),
+		content: '',
+		touched: false,
+		error: null
   }
 }
+	makeDate() {
+		let date = new Date()
+		return date.toLocaleString()
+	}
 
   updateNoteName(input) {
 	  this.setState({
 		  note_name: input,
-		  id: this.context.notes.length + 1
 	  });
   }
+
+  updateFolderId(input) {
+	  if (!this.state.touched) {
+		this.setState({
+			folder_id: input,
+			touched: true
+		});
+	  }
+	
+}
 
   updateNoteContent(input) {
-	  this.setState({
-		  content: input
-	  });
-  }
-
+		this.setState({
+			content: input
+		});
+	}
+	 
   updateNoteFolder(input, folders) {
 	  const singleFolder = folders.find(folder => folder.folder_name === input)
 	  this.setState({
-		folder_id: singleFolder.folder_id, 
+		folder_id: singleFolder.id, 
 	  });
   }
 
   handleSubmit(event) {
 	  event.preventDefault();
 	  const note = this.state;
-	  this.context.addNote(note);
-	//   this.props.history.push('/');
 
 	  fetch(`${config.API_ENDPOINT}/notes`, {
 		method: 'POST',
 		headers: {
 				'content-type': 'application/json',
-				'authorization': `bearer ${TokenService.getAuthToken()}`,
+				'authorization': `bearer ${TokenHelpers.getAuthToken()}`,
 		},
 		body: JSON.stringify({
 			note
@@ -61,58 +72,59 @@ export default class AddNoteForm extends Component {
 			}
 			return response.json()
 		})
+		.then(result => {
+			// return full folder details and insert into context
+			this.context.addNote(result[0]);
+		})
 		.then(this.props.history.push('/'))
 		.catch(error => this.setState({error}))
 }
 
-validateLength() {
-	const noteName = this.state.note_name
+	validateSubmission() {
+		const noteName = this.state.note_name
+		const noteContent = this.state.content
 
-  if (this.state.note_name.trim().length === 0) {
-	  return 'Name can not be blank'
-  }
-
-  if (noteName.length === 0) {
-	  return 'Name can not be blank'
-  }
-
-	if ((noteName.length < 3)&&(noteName.length > 0)) {
-		return 'Name must be longer than 3 characters'
+		if (
+				((noteName.trim().length < 3) ||
+				(noteName.length < 3)
+				) 
+				||
+				(noteContent.length < 3)
+			)
+			{
+			return true
+		}
 	}
-}
 
-validateExistingName() {
-	const noteName = this.state.name
-	const notes = this.context.notes.map(note => note.name)
-
-	if (notes.find(note => note === noteName)) {
-		return 'Note name already exists'
+	randomKey() {
+		return Math.random().toString(36).substr(2, 9);
 	}
-}
-
-validateContent() {
-	const noteContent = this.state.content
-
-	if ((noteContent.length < 3)&&(noteContent.length > 0)) {
-		return 'Content must be longer than 3 characters'
-	}
-}
 
   render() {
-
-	  const {folders} = this.context
-
-	  return (
-
+	const { error } = this.state;
+	const {folders} = this.context;
+	let firstFolder = folders[0]
+	let firstFolderId;
+	  
+	if (firstFolder) {
+		firstFolderId = firstFolder['id']
+	}
+	
+	  return folders ? (
+		  <>
+		<div role="alert">{error && <p className="red">{error}</p>}</div>
 		  <form onSubmit={e => this.handleSubmit(e)} className={['Noteful-form'].join(' ')}>
 			  <label htmlFor='note_input_field'>Name</label>
-			  <input id='note_input_field' type='text' onChange={e => this.updateNoteName(e.target.value)}></input>
+			  <input id='note_input_field' type='text' onChange={e => {
+				  this.updateNoteName(e.target.value)
+				  this.updateFolderId(firstFolderId)
+				  }}></input>
 			
 
 			  <label htmlFor='folder_select_menu'>Folder</label>
 			  <select id='folder_select_menu' onChange={e => this.updateNoteFolder(e.target.value, folders)}>
 				  {folders.map(folder => (
-					  <option value={folder.folder_name} key={folder.folder_name}>{folder.folder_name}</option>
+					  <option value={folder.folder_name} key={`folder.folder_name_${this.randomKey()}`}>{folder.folder_name}</option>
 				  ))}
 			  </select>
 
@@ -121,12 +133,10 @@ validateContent() {
 			  
 
 			  <button type='submit' disabled={
-					  this.validateLength() ||
-					  this.validateExistingName() ||
-					  this.validateContent() }>Submit</button>
+					  this.validateSubmission() }>Submit</button>
 		  </form>
+		  </>
 
-	  )
-  }
-  
+	  ) : ('');
+	}
 }

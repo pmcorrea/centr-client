@@ -1,6 +1,6 @@
 import config from '../config'
 
-const TokenService = {
+const TokenHelpers = {
   saveAuthToken(token) {
     window.localStorage.setItem(config.TOKEN_KEY, token)
   },
@@ -11,11 +11,11 @@ const TokenService = {
     window.localStorage.removeItem(config.TOKEN_KEY)
   },
   hasAuthToken() {
-    return !!TokenService.getAuthToken()
+    return !!TokenHelpers.getAuthToken()
   },
   makeBasicAuthToken(userName, password) {
     return window.btoa(`${userName}:${password}`)
   },
 }
 
-export default TokenService
+export default TokenHelpers

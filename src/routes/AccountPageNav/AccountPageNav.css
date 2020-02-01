@@ -1,12 +1,12 @@
 
-.NotePageNav__back-button {
+.AccountPageNav__back-button {
   margin: 45px 20px 25px auto
 }
-.NotePageNav__back-button:hover {
+.AccountPageNav__back-button:hover {
   background-color: #FFB72F;
 }
 
-.NotePageNav__folder-name {
+.AccountPageNav__folder-name {
   color: #b5b3b3;
   font-family: var(--custom-font);
   font-size: 40px;
@@ -18,7 +18,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  /* .NotePageNav__folder-name {
+  /* .AccountPageNav__folder-name {
     display: none;
   } */
 }

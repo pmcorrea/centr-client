@@ -13,13 +13,13 @@ export default class NotePageMain extends Component {
     let note;
 
     if (params) {
-      note = notes ? findNote(notes, params) : {};
+      note = notes ? findNote(notes, parseInt(params)) : {};
     }
 
     return this.context.notes.length ? (
       <section className="NotePageMain">
         <Note
-          id={note.note_id}
+          id={note.id}
           name={note.note_name}
           modified={note.modified}
           history={this.props.history}
