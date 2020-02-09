@@ -86,10 +86,8 @@ export default class AccountPage extends Component {
     });
   }
 
-  getVisibilityAndUserName() {
-    return AuthApiService.getVisibilityAndUserName({
-      token: TokenHelpers.getAuthToken()
-    })
+  getUserDetailsById() {
+    return AuthApiService.getUserDetailsById()
     .then(result => {
       this.setState({ 
         currentVisibility: result[0]['visibility'],
@@ -102,7 +100,7 @@ export default class AccountPage extends Component {
   }
 
   componentDidMount() {
-    this.getVisibilityAndUserName()
+    this.getUserDetailsById()
   }
 
   render() {

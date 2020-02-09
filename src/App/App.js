@@ -14,14 +14,17 @@ import AddNoteForm from "../components/AddNoteForm/AddNoteForm";
 import RegisterPage from "../routes/RegisterPage/RegisterPage";
 import AccountPage from "../routes/AccountPage/AccountPage";
 import AccountPageNav from "../routes/AccountPageNav/AccountPageNav";
+import DiscoverPageNav from "../routes/DiscoverPageNav/DiscoverPageNav";
+import DiscoverPage from "../routes/DiscoverPage/DiscoverPage";
+import FollowingPage from "../routes/FollowingPage/FollowingPage";
+import FollowingPageNav from "../routes/FollowingPageNav/FollowingPageNav";
 
 // Contexts
 import MainContext from "../contexts/MainContext";
 
-// Helpers, service, and variables
+// Helpers, services, and variables
 import TokenHelpers from "../services/token-helpers";
 import AuthApiService from "../services/auth-api-service";
-import config from "../config";
 
 // Style
 import "./App.css";
@@ -55,74 +58,7 @@ export default class App extends Component {
       setFolders: folders => {
         this.setState({ folders });
       },
-      handleDeleteNote: noteId => {
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `bearer ${TokenHelpers.getAuthToken()}`
-          }
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.status);
-            }
-            return response.json();
-          })
-          .catch(error => this.setState({ error }));
-      },
-      handleDeleteFolder: folderId => {
-        fetch(`${config.API_ENDPOINT}/folders/${folderId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `bearer ${TokenHelpers.getAuthToken()}`
-          }
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.status);
-            }
-            return response.json();
-          })
-          .catch(error => this.setState({ error }));
-      },
-      addFolder: folder => {
-        this.setState({
-          folders: [...this.state.folders, folder]
-        });
-      },
-      addNote: note => {
-        this.setState({
-          notes: [...this.state.notes, note]
-        });
-      },
-      removeFolder: folderId => {
-        let folders = this.state.folders
-        let notes = this.state.notes
 
-        folders = folders.filter(folder => (
-          folder.id !== folderId
-        ))
-
-        notes = notes.filter(note => (
-          note.folder_id !== folderId
-        ))
-
-        this.setState({
-          folders: folders,
-          notes: notes
-        })
-      },
-      removeNote: noteId => {
-        let notes = this.state.notes
-       
-        notes = notes.filter(note => (
-          note.id !== noteId
-        ))
-
-        this.setState({
-          notes: notes
-        })
-      }
     };
   }
 
@@ -156,6 +92,19 @@ export default class App extends Component {
             return <AccountPageNav {...routeProps} />
           }}
           />
+          <Route
+          path="/discover"
+          render={routeProps => {
+            return <DiscoverPageNav {...routeProps} />
+          }}
+          />
+
+        <Route
+          path="/following"
+          render={routeProps => {
+            return <FollowingPageNav {...routeProps} />
+          }}
+          />  
       </>
     );
   }
@@ -216,10 +165,50 @@ export default class App extends Component {
           }}
         />  
 
+        <Route
+          path="/discover"
+          render={routeProps => {
+            if (!TokenHelpers.hasAuthToken()) {
+              return <Redirect to="/login" />;
+            }
+            return <DiscoverPage {...routeProps} />;
+          }}
+        />  
+
+          <Route
+          path="/following"
+          render={routeProps => {
+            if (!TokenHelpers.hasAuthToken()) {
+              return <Redirect to="/login" />;
+            }
+            return <FollowingPage {...routeProps} />;
+          }}
+        />  
+
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
       </>
     );
+  }
+
+  renderFollowingButton() {
+    return (
+      <button
+      className="following"
+      >
+      <Link to="/following">Following</Link>
+      </button>
+    )
+  }
+
+  renderDiscoverButton() {
+    return (
+      <button
+      className="discover"
+      >
+      <Link to="/discover">Discover</Link>
+      </button>
+    )
   }
 
   renderAccountButton() {
@@ -257,6 +246,9 @@ export default class App extends Component {
               <Link to="/">Noteful</Link>{" "}
               <FontAwesomeIcon icon="check-double" />
             </h1>
+            {TokenHelpers.hasAuthToken() ? this.renderFollowingButton() : ''}
+
+            {TokenHelpers.hasAuthToken() ? this.renderDiscoverButton() : ''}
 
             {TokenHelpers.hasAuthToken() ? this.renderAccountButton() : ''}
 

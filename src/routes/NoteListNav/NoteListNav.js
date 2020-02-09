@@ -5,6 +5,7 @@ import CircleButton from '../../components/CircleButton/CircleButton'
 import { countNotesForFolder } from '../../services/notes-helpers'
 import './NoteListNav.css'
 import MainContext from '../../contexts/MainContext.js'
+import AuthApiService from "../../services/auth-api-service.js"
 
 
 export default class NoteListNav extends Component {
@@ -12,9 +13,13 @@ export default class NoteListNav extends Component {
   static contextType = MainContext;
 
   handleDeleteFolder(value) {
-    this.context.handleDeleteFolder(value)
-    this.context.removeFolder(value)
-    this.props.history.push('/')
+    AuthApiService.handleDeleteFolder(value)
+    .then(result => {
+      this.context.getData()
+    })
+    .catch(error => {
+      console.error(error)
+    })   
   }
 
   render() {

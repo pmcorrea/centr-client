@@ -4,14 +4,19 @@ import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Note.css";
 import MainContext from "../../contexts/MainContext";
+import AuthApiService from "../../services/auth-api-service.js"
 
 export default class Note extends Component {
   static contextType = MainContext;
 
   handleDeleteNote(value) {
-    this.context.handleDeleteNote(value);
-    this.context.removeNote(value)
-    this.props.history.push("/");
+    AuthApiService.handleDeleteNote(value)
+    .then(result => {
+      this.context.getData()
+    })
+    .catch(error => {
+      console.error(error)
+    })   
   }
 
   render() {

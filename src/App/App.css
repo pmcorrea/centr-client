@@ -61,6 +61,26 @@
   border: none;
 }
 
+.discover {
+  display: inline-block;
+  position: absolute;
+  right: 150px;
+  bottom: 20px;
+  color: white;
+  background-color: gray;
+  border: none;
+}
+
+.following {
+  display: inline-block;
+  position: absolute;
+  right: 220px;
+  bottom: 20px;
+  color: white;
+  background-color: gray;
+  border: none;
+}
+
 .logout:hover {
   display: inline-block;
   position: absolute;

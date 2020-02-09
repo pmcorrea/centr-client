@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './AddFolderForm.css'
 import MainContext from '../../contexts/MainContext';
-import config from '../../config'
-import TokenHelpers from '../../services/token-helpers'
+import AuthApiService from "../../services/auth-api-service.js"
+
 
 export default class AddFolderForm extends Component {
   static contextType = MainContext;
@@ -24,28 +24,14 @@ export default class AddFolderForm extends Component {
     	event.preventDefault();
 		const folder  = this.state;
 
-		fetch(`${config.API_ENDPOINT}/folders`, {
-			method: 'POST',
-			headers: {
-					'content-type': 'application/json',
-					'authorization': `bearer ${TokenHelpers.getAuthToken()}`,
-			},
-			body: JSON.stringify({
-				folder
-			})
+		AuthApiService.postFolder(folder)
+			.then(result => {
+			this.context.getData()
+			this.props.history.push('/')
 		})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error(response.status)
-			}
-			return response.json()
-		})
-		.then(result => {
-			// return full folder details and insert into context
-			this.context.addFolder(result[0]);
-		})
-		.then(this.props.history.push('/'))
-		.catch(error => this.setState({error}))
+		.catch(error => 
+			error => this.setState({error})
+		) 
 	}
 
 	validateLength() {
