@@ -1,130 +1,102 @@
 import React, { Component } from "react";
 import "./DiscoverPage.css";
 import AuthApiService from "../../services/auth-api-service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export default class DiscoverPage extends Component {
 
-  state = {
-    users: [],
-    following: [],
-    error: null,
-    currentUser: null
-  }
+	state = {
+		users: null,
+		error: null,
+		currentUser: null,
+		notFollowing:null
+		
+	}
 
-  componentDidMount() {
-    this.getAllUsers()
-    this.getConnections()
-    this.getCurrentUser()
-  }
+	componentDidMount() {
+		this.setCurrentUser()
+		this.setNotFollowing()
+	}
 
-  getCurrentUser() {
-    AuthApiService.getUserDetailsById()
-    .then(result => {
-      result = result[0]['user_name']
+	setNotFollowing() {
+		AuthApiService.getNotFollowing()
+		.then(notFollowing => {
+			if (notFollowing) {
+				this.setState({
+					notFollowing: notFollowing
+				})
+			}
 
-      this.setState({
-        currentUser: result
-      })
-      
-    })
-  }
+		})
+		.catch(error => {
+			this.setState({ error }, () => console.log(this.state.error))
+		})
+	}
 
-  getConnections() {
-    AuthApiService.getConnections()
-    .then(result => {
-      if (result[0]['connections']) {
-        this.setState({
-          following: result[0]['connections']
-        })
-      }
-    })
-    .catch(error => {
-      this.setState({ error }, () => console.log(this.state.error))
-    });
-  }
+	setCurrentUser() {
+		AuthApiService.getCurrentUserDetailsById()
+		.then(currentUser => {
+			currentUser = currentUser[0]
 
-  getAllUsers() {
-    AuthApiService.getAllUsers()
-    .then(result => {
-      this.setState({ users:  result})
-    }, () => this.setNotFollowing())
-    .catch(error => {
-      this.setState({ error }, () => console.log(this.state.error))
-    });
-  }
+			this.setState({
+				currentUser: currentUser
+			})
+		})
+		.catch(error => {
+			this.setState({ error }, () => console.log(this.state.error))
+		})
+	}
 
-  addNewConnection(user) {
-    let newConnectionId = user.id
+	sendFollowRequest(toUser) {
+		let userId = toUser.id
 
-      AuthApiService.postConnection({newConnectionId})
-        .then(result => {
-          this.getConnections()
-      })
-      .catch(error => {
-        this.setState({ error }, () => console.log(this.state.error))
-      });
-  }
-
-  postFollower(user) {
-    let newConnectionId = user.id
-        
-        AuthApiService.postFollower({newConnectionId})
-        .then(result => {
-          this.getConnections()
-         })
-        .catch(error => {
-          this.setState({ error }, () => console.log(this.state.error))
-        });
-
-  }
-
-  isFollower(user) {
-    if (this.state.following) {
-      let result = this.state.following.includes(user.user_name)
-      if (!result) {
-        return 'Follow'
-      } else {
-        return 'Unfollow'
-      }
-    } 
-  }
+		AuthApiService.postRequest(userId)
+		.then(result => {
+			this.setNotFollowing()
+		})
+		.catch(error => {
+			this.setState({ error }, () => console.log(this.state.error))
+		})
+	}
 
   render() {
-    // To Do: Change to limit total users not following returned 
-    let arr1 = this.state.users
-    let arr2 = this.state.following
 
-    // Not following
-    // Return arr1 without arr2 values
-    let notFollowing = this.state.following ? arr1.filter(x => !arr2.includes(x.user_name)) : this.state.users;
-
-    notFollowing = notFollowing.filter(conn => (
-      conn['user_name'] !== this.state.currentUser
-    ))
+	let notFollowing = this.state.notFollowing ? this.state.notFollowing : ('')
       
-    return this.state.users ? (
-      <>
-      <ul>
-          {notFollowing.map(user => (
-            <li key={user.user_name}>
-                <div className="user_box">
-                <h2 className="Note__title">
-                  {user.user_name}
-                </h2>
-                <br />
-                <h2 className="Note__title">
-                  {user.visibility}
-                </h2>
-                  <button className='follow_button' onClick={() => {
-                    this.addNewConnection(user)
-                    this.postFollower(user)
-                  }
-                  }>Follow</button>
-                </div>
-            </li>
+    return this.state.notFollowing ? (
+	<>
+	<div className="page_title_container">
+       {/* <h3 className="page_title">Discover</h3> */}
+      </div>
+		<ul className="discover_ul">
+		<p className="section_headers">Discover</p> 
+			{notFollowing.map(user => (
+				<li className="discover_li" key={user.user_name}>
+					
+					<div className="discover_box">
+					{/* <FontAwesomeIcon className="profile_img" icon='user-alt' size="2x"/> */}
+						<img src={user.avatar} className="avatar" alt="avatar"></img>
+						
+						<h2 className="connection_name">
+							{user.user_name}
+						</h2>
+					
+
+						
+
+						<button className='discover_follow_button' 
+							onClick={() => {
+								this.sendFollowRequest(user)
+							}}
+						>
+							<FontAwesomeIcon icon='plus' size="1x"/>
+						</button>
+					</div>
+				</li>
           ))}
-      </ul>
-      </>
+		</ul>
+	</>	
     ) : ('')
-  }
+	}
 }

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FoldersView component renders a .FoldersView by default 1`] = `""`;
+
+exports[`FoldersView component renders a link in ul for each folder in array 1`] = `null`;

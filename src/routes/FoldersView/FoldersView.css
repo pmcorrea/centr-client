@@ -1,0 +1,116 @@
+
+.FoldersView__list {
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.FoldersView__buttons_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+}
+
+.FoldersView__button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  margin: 10px;
+  margin-bottom: 25px;
+  height: 44px;
+  background-color: rgb(112, 39, 161);
+  border-radius: 5px;
+  text-align: center;
+  border: black none 1px;
+  box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
+}
+
+.FoldersView__button-wrapper>a {
+  /* text-align: center; */
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px 20px;
+}
+
+.FoldersView__button-wrapper>a:hover {
+  color: orange;
+}
+
+.FoldersView__add-folder-button {
+  margin: 20px auto;
+}
+.FoldersView__add-folder-button:hover {
+  background-color: #29862e;
+  color: white;
+}
+
+.FoldersView__folder-link {
+  color: rgb(112, 39, 161);
+  /* display: block; */
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  /* position: relative;
+  margin: 0 auto; */
+}
+.FoldersView__folder-link:hover {
+  color: #FFB72F;
+  cursor: pointer;
+}
+.FoldersView__folder-link.active {
+  background-color: rgb(199, 199, 199);
+}
+
+.FoldersView__li_element {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  /* display: inline-block; */
+  margin-bottom: 20px;
+  box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
+}
+
+.FoldersView__num-posts {
+  color: black;
+  /* display: inline-block; */
+  /* position: absolute; */
+  /* right: 100px; */
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.Folder__delete {
+  --post-button-height: 32px;
+  background-color:transparent;
+  border: 0;
+  color: black;
+  /* right: 20px; */
+  /* top: 10px; */
+  font-size: 20px;
+  height: 20px;
+  /* position: absolute; */
+  width: calc(var(--post-height));
+}
+.Folder__delete:hover {
+  /* background-color: #bd0909; */
+  color: orange;
+  cursor: pointer;
+  font-weight: bold;
+}

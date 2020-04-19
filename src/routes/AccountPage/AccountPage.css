@@ -1,24 +1,169 @@
-.deleteForm, .changePasswordForm, .changeVisibilityForm {
-	background-color: #1d3656;
-	color: #dedede;
-	padding: 16px;
-	max-width: 332px;
-  }
-  
-  .Account-form label {
-	display: block;
-	font-size: 16px;
-	padding-bottom: 8px;
-  }
-  
-input,
-textarea,
-select {
-	font-size: 14px;
-	padding: 8px;
-	width: 300px;
-  }
-  
-p {
-	color: white;
+.profile_box{
+	width: 80vw;
+	height: 150px;
+	background-color: rgb(112, 39, 161);
+	margin: 10px auto;
+	margin-bottom: 25px;
+	border-radius: 15px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
 }
+
+
+.AccountPage__forms {
+	flex-direction: column;
+	width: 80vw;
+  	align-items: center;
+	justify-content: center;
+	background-color:white;
+	margin: 0 auto;
+}
+
+.AccountPage__deleteAccountForm, .AccountPage__changePasswordForm, .AccountPage__changeVisibilityForm {
+	background-color: white;
+	/* width: 400px; */
+	margin: 0 auto;
+	margin-bottom: 40px;
+	
+  }
+
+.AccountPage__input,
+.AccountPage__select, 
+.AccountPage__option,
+.AccountPage__button {
+	font-size: 15px;
+	padding: 8px;
+	width: 100%;
+	/* border: none; */
+	border-radius: 0px;
+	cursor: pointer;
+  }
+
+  .AccountPage__select {
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	background-color: rgba(214, 214, 214, 0.63);
+  }
+
+  .AccountPage__select:hover {
+    border-color: orange;
+}
+
+  .AccountPage__input {
+	border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
+  width: 100%; 
+  /* margin-top: 10px; */
+  font-size: 20px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  }
+
+  .AccountPage__input::placeholder {
+	  color: gray;
+	  font-size: 15px;
+  }
+
+  .AccountPage__input:hover {
+	border-color: orange;
+}
+
+  .AccountPage__button {
+	width: 100%; 
+	padding: 15px;
+	font-size: 15px;
+	background-color: rgb(112, 39, 161);
+	color: white;
+	border-radius: 5px;
+	border: 0px solid white;
+	margin-top: 10px; 
+	font-weight: bold;
+	cursor: pointer;
+	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
+  }
+
+  .AccountPage__button:hover {
+	color: orange;
+  }
+  
+#AccountPage__vis_status {
+	color: gray;
+	font-size:15px;
+}
+
+.validation_box {
+	width: 300px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.validation_box p{
+	color: red;
+	font-weight: bold;
+	margin: 0 auto;
+}
+
+.profile_box {
+	display: flex;
+	/* justify-content: center; */
+	align-items: center;
+}
+
+.AccountPage__logout{
+	border: 0px;
+	color: white;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.AccountPage__logout:hover {
+	color: orange;
+}
+
+.upload_photo{
+	display: block;
+	margin: 0 auto;
+	border: solid black 1px;
+	background-color: white;
+}
+
+.profile_subbox{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.profile_box_avatar {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin: 10px;
+}
+
+.change_avatar_button{
+	position: absolute;
+	opacity: 0;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	font-size: 20px;
+	transition: opacity .2s, visibility .2s;
+	cursor: pointer;
+}
+
+.change_avatar_button:hover {
+	opacity: .7;
+	background-color: orange;
+	color: black;
+}
+
+

@@ -1,0 +1,63 @@
+.AddFolder__form_container {
+  display: flex;
+	flex-direction: column;
+	width: 100vw;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100vh;
+  background-color: white;
+}
+
+.AddFolder__form{
+  width: 80vw;
+  height: 50vh;
+  margin: 0 auto;
+  background-color: white;
+  color: black
+}
+
+.AddFolder__input {
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
+  width: 100%; 
+  margin-top: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  font-size: 15px;
+	padding: 8px;
+	width: 100%;
+  border-radius: 0px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.AddFolder__input:hover{
+  border-color: orange;
+}
+
+
+.AddFolder__input::placeholder {
+  color: gray;
+  font-size: 15px;
+}
+
+.AddFolder__button {
+  font-size: 15px;
+	padding: 15px;
+	width: 100%;
+	border: 0px solid white;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+  background-color: rgb(112, 39, 161);  
+  color: white;
+  box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
+}
+
+.AddFolder__button:hover{
+  color: orange;
+}

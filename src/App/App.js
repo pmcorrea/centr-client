@@ -3,26 +3,27 @@ import React, { Component } from "react";
 import { Route, Link, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// Components and Routes
+// Components
+
+// Routes
+import AddFolderForm from "../routes/AddFolderForm/AddFolderForm";
+import AddPostForm from "../routes/AddPostForm/AddPostForm";
 import LoginPage from "../routes/LoginPage/LoginPage";
-import NoteListNav from "../routes/NoteListNav/NoteListNav";
-import NoteListMain from "../routes/NoteListMain/NoteListMain";
-import NotePageNav from "../routes/NotePageNav/NotePageNav";
-import NotePageMain from "../routes/NotePageMain/NotePageMain";
-import AddFolderForm from "../components/AddFolderForm/AddFolderForm";
-import AddNoteForm from "../components/AddNoteForm/AddNoteForm";
 import RegisterPage from "../routes/RegisterPage/RegisterPage";
+import FoldersView from "../routes/FoldersView/FoldersView";
+import PostsList from "../routes/PostsList/PostsList";
+import PostWithContent from "../routes/PostWithContent/PostWithContent";
 import AccountPage from "../routes/AccountPage/AccountPage";
-import AccountPageNav from "../routes/AccountPageNav/AccountPageNav";
-import DiscoverPageNav from "../routes/DiscoverPageNav/DiscoverPageNav";
 import DiscoverPage from "../routes/DiscoverPage/DiscoverPage";
 import FollowingPage from "../routes/FollowingPage/FollowingPage";
-import FollowingPageNav from "../routes/FollowingPageNav/FollowingPageNav";
+import EditPost from "../routes/EditPost/EditPost";
+import Feed from "../routes/Feed/Feed";
+import PublicPostRoute from "../routes/PublicPostRoute/PublicPostRoute";
 
 // Contexts
 import MainContext from "../contexts/MainContext";
 
-// Helpers, services, and variables
+// Helpers, services, and configs
 import TokenHelpers from "../services/token-helpers";
 import AuthApiService from "../services/auth-api-service";
 
@@ -30,234 +31,351 @@ import AuthApiService from "../services/auth-api-service";
 import "./App.css";
 
 export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      folders: [],
-      notes: [],
-      authToken: null,
-      setAuthToken: authToken => this.setState({ authToken }),
-      getData: () => {
-        let token = TokenHelpers.getAuthToken();
-        AuthApiService.postLogin({
-            user_name: null,
-            password: null,
-            token: token
-        })
-        .then(res => {
-            this.state.setFolders(res["folders"]);
-            this.state.setNotes(res["notes"]);
-        })
-        .catch(function(error) {
-            console.error(error);
-        });
-      },
-      setNotes: notes => {
-        this.setState({ notes });
-      },
-      setFolders: folders => {
-        this.setState({ folders });
-      },
+	constructor() {
+		super()
+		this.state = {
+			posts: [],
+			publicPosts: [],
+			folders: [],
+			authToken: null,
+			connections: [],
+			requests: false,
 
-    };
+			setAuthToken: authToken => this.setState({ authToken }),
+			getData: () => {
+				let token = TokenHelpers.getAuthToken();
+				
+				AuthApiService.postLogin({
+					user_name: null,
+					password: null,
+					token: token
+				})
+				.then(res => {
+					this.state.setFolders(res["folders"])
+					this.state.setPosts(res["posts"])
+				})
+				.catch(function(error) {
+					console.error(error)
+				})
+			},
+			setPosts: posts => {
+				this.setState({ posts })
+			},
+			setFolders: folders => {
+				this.setState({ folders })
+			},
+			setRequests: () => {
+				AuthApiService.getFollowRequests()
+				.then(followRequests => {
+					if (followRequests.length !== 0) {
+					this.setState({
+					requests: true
+					})
+					} else {
+					this.setState({
+					requests: false
+					})
+					}
+				})
+				.catch(error => {
+					this.setState({ error }, () => console.log(this.state.error))
+				})
+			}
+		}
+	}
+
+	// Methods
+	setRequests() {
+		// change
+		AuthApiService.getFollowRequests()
+		.then(followRequests => {
+
+			if (followRequests.length !== 0) {
+				this.setState({
+					requests: true
+				})
+      		} else {
+				this.setState({
+					requests: false
+				})
+	  		}
+
+  		})
+		.catch(error => {
+			this.setState({ error }, () => console.log(this.state.error))
+		})
+	}
+
+	setConnections() {
+		// change
+		AuthApiService.getConnections()
+		.then(connections => {
+			if (connections) {
+				this.setState({
+					connections: connections
+				}, () => this.setPublicPosts())
+			}
+
+		})
+		.catch(error => {
+			this.setState({ error }, () => console.log(this.state.error))
+		})
   }
 
-  componentDidMount() {
-    this.state.getData();
-  }
+	setPublicPosts() {
+    
+		let connections = this.state.connections
+		let connectionsIds = connections.map(x => {
+		  return x.id
+		} )
+	
+		AuthApiService.getPublicPosts(connectionsIds)
+		.then(result => {
+		  this.setState({
+			publicPosts: result
+		  })
+		})
+		.catch(error => {
+				this.setState({ error }, () => console.log(this.state.error))
+			})
+		
+	  }
 
-  // Render methods
-  renderNavRoutes() {
-    return (
-      <>
-        {["/", "/folder/:folderId"].map(path => (
-          <Route
-            exact
-            key={path}
-            path={path}
-            render={routeProps => <NoteListNav {...routeProps} />}
-          />
-        ))}
-        <Route
-          path="/note/:noteId"
-          render={routeProps => {
-            return <NotePageNav {...routeProps} />;
-          }}
-        />
-        <Route path="/add-folder" component={NotePageNav} />
-        <Route path="/add-note" component={NotePageNav} />
-        <Route
-          path="/account"
-          render={routeProps => {
-            return <AccountPageNav {...routeProps} />
-          }}
-          />
-          <Route
-          path="/discover"
-          render={routeProps => {
-            return <DiscoverPageNav {...routeProps} />
-          }}
-          />
+	// Lifecycle
+	componentDidMount() {
+		this.state.getData()
+		this.setConnections()
+		this.setRequests()
+	}
 
-        <Route
-          path="/following"
-          render={routeProps => {
-            return <FollowingPageNav {...routeProps} />
-          }}
-          />  
-      </>
-    );
-  }
+	// Render Methods
+	renderMainRoutes() {
+		return (
+		<>
+			{["/myposts", "/folder/:folderId"].map(path => (
+				<Route
+					key={path}
+					path={path}
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <PostsList {...routeProps} />
+					}}
+				/>
+			))}
 
-  renderMainRoutes() {
-    return (
-      <>
-        {["/", "/folder/:folderId"].map(path => (
-          <Route
-            exact
-            key={path}
-            path={path}
-            render={routeProps => {
-              if (!TokenHelpers.hasAuthToken()) {
-                return <Redirect to="/login" />;
-              }
-              return <NoteListMain {...routeProps} />;
-            }}
-          />
-        ))}
-        <Route
-          path="/note/:noteId"
-          render={routeProps => {
-            if (!TokenHelpers.hasAuthToken()) {
-              return <Redirect to="/login" />;
-            }
-            return <NotePageMain {...routeProps} />;
-          }}
-        />
+			<Route
+				path="/folders"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <FoldersView {...routeProps} />
+				}}
+			/>
 
-        <Route
-          path="/add-folder"
-          render={routeProps => {
-            if (!TokenHelpers.hasAuthToken()) {
-              return <Redirect to="/login" />;
-            }
-            return <AddFolderForm {...routeProps} />;
-          }}
-        />
+			<Route
+				path="/add-folder"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <AddFolderForm {...routeProps} />
+				}}
+			/>
 
-        <Route
-          path="/add-note"
-          render={routeProps => {
-            if (!TokenHelpers.hasAuthToken()) {
-              return <Redirect to="/login" />;
-            }
-            return <AddNoteForm {...routeProps} />;
-          }}
-        />
+			<Route
+				path="/post/:postId"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <PostWithContent {...routeProps} />
+				}}
+			/>
 
-        <Route
-          path="/account"
-          render={routeProps => {
-            if (!TokenHelpers.hasAuthToken()) {
-              return <Redirect to="/login" />;
-            }
-            return <AccountPage {...routeProps} />;
-          }}
-        />  
+			<Route
+				path="/add-post"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <AddPostForm {...routeProps} />
+				}}
+			/>
 
-        <Route
-          path="/discover"
-          render={routeProps => {
-            if (!TokenHelpers.hasAuthToken()) {
-              return <Redirect to="/login" />;
-            }
-            return <DiscoverPage {...routeProps} />;
-          }}
-        />  
+			<Route
+				path="/edit/:postId"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <EditPost {...routeProps} />
+				}}
+			/>
 
-          <Route
-          path="/following"
-          render={routeProps => {
-            if (!TokenHelpers.hasAuthToken()) {
-              return <Redirect to="/login" />;
-            }
-            return <FollowingPage {...routeProps} />;
-          }}
-        />  
+			<Route
+				path="/"
+				exact
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <Feed {...routeProps} />
+				}}
+			/> 
 
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
-      </>
-    );
-  }
+			<Route
+				path="/discover"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <DiscoverPage {...routeProps} />
+				}}
+			/>  
 
-  renderFollowingButton() {
-    return (
-      <button
-      className="following"
-      >
-      <Link to="/following">Following</Link>
-      </button>
-    )
-  }
+			<Route
+				path="/following"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <FollowingPage {...routeProps} />
+				}}
+			/>  
 
-  renderDiscoverButton() {
-    return (
-      <button
-      className="discover"
-      >
-      <Link to="/discover">Discover</Link>
-      </button>
-    )
-  }
+			<Route
+				path="/account"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <AccountPage {...routeProps} />
+				}}
+			/>
 
-  renderAccountButton() {
-    return (
-      <button
-      className="account"
-      >
-      <Link to="/account">Account</Link>
-      </button>
-    )
-  }
+			<Route 
+				path="/login" 
+				component={LoginPage} 
+			/>
 
-  renderLogoutButton() {
-    return (
-      <button
-      className="logout"
-      onClick={() => {
-        TokenHelpers.clearAuthToken();
-        this.setState({ authToken: null, folders: [], notes: [] });
-      }}
-    >
-      <Link to="/login">Log out</Link>
-    </button>
-    )
-  }
+			<Route 
+				path="/register" 
+				component={RegisterPage} 
+			/>
 
-  render() {
-    return (
-      <MainContext.Provider value={this.state}>
-        <div className="App">
-          <nav className="App__nav">{this.renderNavRoutes()}</nav>
+			{/* <Route 
+				path="/PublicPost/:postId" 
+				component={PublicPostRoute} 
+			/> */}
 
-          <header className="App__header">
-            <h1>
-              <Link to="/">Noteful</Link>{" "}
-              <FontAwesomeIcon icon="check-double" />
-            </h1>
-            {TokenHelpers.hasAuthToken() ? this.renderFollowingButton() : ''}
+			<Route
+				path="/PublicPost/:postId"
+				render={routeProps => {
+					if (!TokenHelpers.hasAuthToken()) {
+						return <Redirect to="/login" />
+					}
+					return <PublicPostRoute {...routeProps}/>
+				}}
+			/>
+		</>
+		);
+	}
 
-            {TokenHelpers.hasAuthToken() ? this.renderDiscoverButton() : ''}
+	renderButtons() {
+		return (
+		<>
+			<button className="home">
+				<Link to="/">
+					{window.location.pathname === "/" 
+					? <FontAwesomeIcon className="icons" icon='home' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='home' size="2x" />}
+				</Link>
+			</button>
 
-            {TokenHelpers.hasAuthToken() ? this.renderAccountButton() : ''}
+			<button className="following">
+				<Link to="/following">
+					{this.state.requests ? 
+					<FontAwesomeIcon className="notifications" icon='circle' size="1x" />
+					: (' ')}
+					
+					{window.location.pathname === "/following" 
+					? <FontAwesomeIcon className="icons" icon='user-friends' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='user-friends' size="2x" />}
+				</Link>
+			</button>
 
-            {TokenHelpers.hasAuthToken() ? this.renderLogoutButton() : ''}
-          </header>
+			<button className="discover">
+				<Link to="/discover">
+					{window.location.pathname === "/discover" 
+					? <FontAwesomeIcon className="icons" icon='search' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='search' size="2x" />}
+				</Link>
+			</button>
 
-          <main className="App__main">{this.renderMainRoutes()}</main>
-        </div>
-      </MainContext.Provider>
-    );
-  }
+			{/* <button className="sticky-note">
+				<Link to="/add-post">
+					{window.location.pathname === "/add-post" 
+					? <FontAwesomeIcon className="icons" icon='plus' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='plus' size="2x" />}
+				</Link>
+			</button> */}
+
+			<button className="folder">
+				<Link to="/folders">
+					{window.location.pathname === "/folders" 
+					? <FontAwesomeIcon className="icons" icon='folder' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='folder' size="2x" />}
+				</Link>
+			</button>
+
+			<button className="account">
+				<Link to="/account">
+					{window.location.pathname === "/account" 
+					? <FontAwesomeIcon className="icons" icon='user-circle' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='user-circle' size="2x" />}
+				</Link>
+			</button>
+
+			{/* <button
+				className="logout"
+				onClick={() => {
+					TokenHelpers.clearAuthToken()
+					this.setState({ authToken: null, folders: [], posts: [], requests: false })
+				}}>
+				<Link to="/login" >
+					{window.location.pathname === "/login" 
+					? <FontAwesomeIcon className="icons" icon='sign-out-alt' size="2x" style={{color: "orange"}}/>
+					: <FontAwesomeIcon className="icons" icon='sign-out-alt' size="2x" />}
+				</Link>
+			</button> */}
+		</>
+		)
+	}
+
+	render() {
+		return (
+			<MainContext.Provider value={this.state}>
+				<div className="App">
+					{/* <header className="App__header">
+						<h1>CENTR</h1>
+					</header> */}
+
+					<main className="App__main">
+						{this.renderMainRoutes()}
+					</main>
+
+					{window.location.pathname === "/login" | window.location.pathname === "/register"
+					? ""
+					:
+						<div className='icons_bar'>
+						{this.renderButtons()}
+						</div>
+					}
+				</div>
+			</MainContext.Provider>
+		)
+	}
 }

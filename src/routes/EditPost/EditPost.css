@@ -1,0 +1,100 @@
+.EditPost__form_container {
+	flex-direction: column;
+	width: 80vw;
+  	align-items: center;
+	justify-content: center;
+	background-color:white;
+	margin: 0 auto;
+}
+
+.EditPost__form {
+	background-color: white;
+	width: 80vw;
+	margin: 0 auto;
+	margin-bottom: 40px;
+  }
+
+  .EditPost__input {
+	  margin-bottom: 10px;
+  }
+
+.EditPost__input,
+.EditPost__select, 
+.EditPost__option,
+.EditPost__button {
+	font-size: 15px;
+	padding: 8px;
+	width: 100%;
+	/* border: none; */
+	border-radius: 0px;
+	cursor: pointer;
+  }
+
+  .EditPost__select{
+	font-size: 15px;
+	padding: 8px;
+	width: 100%;
+	border: none;
+  border-radius: 0px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
+  border-radius: 2px;
+  }
+
+  .EditPost__select:hover {
+    border-color: orange;
+}
+
+.EditPost__textarea {
+	width: 100%;
+	height: 250px;
+	resize: none;
+	margin-top: 10px;
+	font-size: 15px;
+	border-radius: 10px;
+	border: 2px rgba(214, 214, 214, 0.63) solid;
+	padding: 10px;
+	margin-bottom: 30px;
+  }
+
+  .EditPost__textarea:hover{
+    border-color: orange;
+  }
+
+  .EditPost__input {
+	border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
+  width: 100%; 
+  margin-top: 10px;
+  font-size: 20px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  }
+
+  .EditPost__input:hover {
+	border-color: orange;
+}
+
+  .EditPost__button {
+	width: 100%; 
+	padding: 15px;
+	font-size: 15px;
+	background-color: rgb(112, 39, 161);
+	color: white;
+	border-radius: 5px;
+	border: 0px solid white;
+	margin-top: 10px; 
+	font-weight: bold;
+	cursor: pointer;
+  }
+
+  .EditPost__button:hover {
+	color: orange;
+  }
+  
+p {
+	color: white;
+}

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicPost component renders a .PublicPost by default 1`] = `
+<div
+  className="PublicPost"
+>
+  <div
+    className="PublicPost_container"
+  >
+    <img
+      alt="avatar"
+      className="public_post_avatar"
+    />
+    <h2
+      className="PublicPost__title"
+    />
+    <div
+      className="PublicPost__dates"
+    >
+      <div
+        className="PublicPost__dates-modified"
+      >
+        <span
+          className="PublicPost_Date"
+        >
+          Invalid Date
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PublicPost component renders the PublicPost given props 1`] = `
+<div
+  className="PublicPost"
+>
+  <div
+    className="PublicPost_container"
+  >
+    <img
+      alt="avatar"
+      className="public_post_avatar"
+    />
+    <h2
+      className="PublicPost__title"
+    >
+      test-class-name
+    </h2>
+    <div
+      className="PublicPost__dates"
+    >
+      <div
+        className="PublicPost__dates-modified"
+      >
+        <span
+          className="PublicPost_Date"
+        >
+          1/15/2019, 12:00:00 AM
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

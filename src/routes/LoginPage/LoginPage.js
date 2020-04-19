@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LoginForm from '../../components/LoginForm/LoginForm'
-import { Section } from '../../Utils/Utils'
 import './LoginPage.css'
+import BG from './login_background.png'
 
 export default class LoginPage extends Component {
   static defaultProps = {
@@ -16,18 +16,19 @@ export default class LoginPage extends Component {
   }
 
   goToRegister = () => {
-    this.props.history.push("/register");
+    this.props.history.push("./register");
   }
 
   render() {
     return (
-      <Section className='LoginPage'>
-        <h2>Login</h2>
+      <div className='LoginPage'>
+        <img src={BG} className="bg_image" alt="background"/>
+        <h1>CENTR</h1>
         <LoginForm
           onLoginSuccess={this.handleLoginSuccess}
           goToRegister={this.goToRegister}
         />
-      </Section>
+      </div>
     )
   }
 }

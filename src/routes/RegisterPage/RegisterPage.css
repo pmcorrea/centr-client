@@ -1,7 +1,82 @@
-label {
-	color: white;
+/* label {
+	color: #eee;
+} */
+
+
+.RegisterForm__form_contianer {
+	flex-direction: column;
+	width: 100vw;
+  	align-items: center;
+	  justify-content: center;
+	  z-index: 100;
+	  position: relative;
 }
 
-.red {
+.RegisterForm {
+	/* background-color: rgba(214, 214, 214, 0.856); */
+	width: 400px;
+	margin: 0 auto;
+	width: 80vw;
+	z-index: 100;
+}
+
+.input_field {
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
+	margin-top: 10px;
+	color: black;
+	/* background-color: rgb(255, 255, 255); */
+	font-size: 20px;
+	padding: 8px;
+	width: 100%;
+	border-radius: 5px;
+	cursor: pointer;
+	border: 2px solid rgb(112, 39, 161);
+}
+
+.input_field::placeholder {
+	color: gray;
+}
+
+.register_button {
+	width: 100%; 
+	padding: 15px;
+	font-size: 15px;
+	background-color: rgb(112, 39, 161);
 	color: white;
+	border-radius: 5px;
+	border: 0px solid white;
+	margin-top: 10px; 
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.register_button:disabled {
+	background-color: rgb(147, 122, 163);
+}
+
+#file-upload_label {
+	color: black;
+	margin-top: 10px;
+}
+
+.registration__container {
+	padding-top: 20px;
+}
+
+.registration__validation_box{
+	padding: 20px 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	background-color: white;
+}
+
+.validation_rules {
+	margin: 0px;
+	font-size: 15px;
+	color: rgb(112, 39, 161);
 }

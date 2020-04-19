@@ -1,19 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faPlus, faChevronLeft, faTrashAlt, faCheckDouble
-} from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter } from 'react-router-dom'
-import 'typeface-roboto'
 import './index.css'
 import App from './App/App'
 
-library.add(faPlus, faChevronLeft, faTrashAlt, faCheckDouble)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+	faPlus, faChevronLeft, faTrashAlt, faCheckDouble, faUserCircle, 
+	faUserFriends, faSearch, faSignOutAlt, faHome, faFolder, faStickyNote,
+	faUserAlt, faCircle, faMinus, faEdit
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add(
+	faPlus, faChevronLeft, faTrashAlt, faCheckDouble, faUserCircle, 
+	faUserFriends, faSearch, faSignOutAlt, faHome, faFolder, faStickyNote,
+	faUserAlt, faCircle, faMinus, faEdit
+	)
 
 ReactDOM.render(
-  <BrowserRouter>
-     <App />
-  </BrowserRouter>,
-  document.getElementById('root')
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>,
+	document.getElementById('root')
 )

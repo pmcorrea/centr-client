@@ -1,7 +1,7 @@
 {
 	"version": 2,
-	"name": "noteful",
-	"alias": "pmcorrea-noteful",
+	"name": "Centr",
+	"alias": "pmcorrea-centr",
 	"routes": [
 		{ "handle": "filesystem" },
 		{ "src": "/.*", "dest": "/index.html" }

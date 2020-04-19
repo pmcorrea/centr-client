@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddFolderForm component renders a form.AddFolderForm by default 1`] = `
+<Fragment>
+  <div
+    className="AddFolder__form_container"
+  >
+    <form
+      className="AddFolder__form"
+      onSubmit={[Function]}
+    >
+      <input
+        className="AddFolder__input"
+        id="post_input_field"
+        onChange={[Function]}
+        placeholder="folder title"
+        type="text"
+      />
+      <button
+        className="AddFolder__button"
+        type="submit"
+      >
+        submit
+      </button>
+    </form>
+  </div>
+</Fragment>
+`;
+
+exports[`AddFolderForm component renders the AddFolderForm given props 1`] = `
+<Fragment>
+  <div
+    className="AddFolder__form_container"
+  >
+    <form
+      className="AddFolder__form"
+      onSubmit={[Function]}
+    >
+      <input
+        className="AddFolder__input"
+        id="post_input_field"
+        onChange={[Function]}
+        placeholder="folder title"
+        type="text"
+      />
+      <button
+        className="AddFolder__button"
+        type="submit"
+      >
+        submit
+      </button>
+    </form>
+  </div>
+</Fragment>
+`;

@@ -1,0 +1,13 @@
+
+.PostWithContent {
+  background-color: white;
+  height: 100%;
+  padding: 10px;
+  width: 100%;
+}
+
+.PostWithContent__content {
+  color: #3a3939;
+  max-width: 380px;
+  padding: 0px 10px 10px;
+}

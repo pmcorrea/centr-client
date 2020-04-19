@@ -1,7 +1,46 @@
-label {
+/* label {
 	color: white;
+} */
+
+.LoginForm__form {
+	position: relative;
+	z-index: 100;
 }
 
-.red {
-	color: white;
+.LoginForm__form Input {
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
+	margin-top: 10px;
+	color: black;
+	background-color: rgb(255, 255, 255);
+	font-size: 20px;
+	padding: 8px;
+	width: 100%;
+	border-radius: 5px;
+	cursor: pointer;
+	border: 2px solid rgb(112, 39, 161);
 }
+
+.LoginForm__form Input::placeholder {
+	color: gray;
+}
+
+.LoginForm__form Button {
+	width: 100%; 
+	padding: 15px;
+	font-size: 15px;
+	background-color: rgb(112, 39, 161);
+	color: white;
+	border-radius: 5px;
+	border: 0px solid white;
+	margin-top: 10px; 
+	font-weight: bold;
+	cursor: pointer;
+	display: block;
+}
+
+.LoginForm__form Button:hover {
+	color: orange;
+  }
