@@ -26,7 +26,7 @@ export default class AddFolderForm extends Component {
 
 		AuthApiService.postFolder(folder)
 			.then(result => {
-			this.context.getData()
+			this.context.getDataWithToken()
 			this.props.history.goBack()
 		})
 		.catch(error => 
@@ -59,18 +59,21 @@ export default class AddFolderForm extends Component {
 		}
 	}
   
-  render(){  
-    return (
-    <>
-	<div className="AddFolder__form_container">
-      <form className="AddFolder__form" onSubmit={e => this.handleSubmit(e)}>
-        <input className="AddFolder__input" id='post_input_field' type='text' placeholder="folder title" onChange={e => this.updateFolderName(e.target.value)}></input>
-
-        <button className="AddFolder__button" type='submit'>submit</button>
-      </form>
-	  </div>
-    </>
-  )
-  }
-  
+	render() {  
+		return (
+			<>
+				<div className="AddFolder__form_container">
+					<form className="AddFolder__form" onSubmit={e => this.handleSubmit(e)}>
+					<input className="AddFolder__input" 
+						id='post_input_field' 
+						type='text' 
+						placeholder="folder title" 
+						onChange={e => this.updateFolderName(e.target.value)}></input>
+						
+					<button className="AddFolder__button" type='submit'>submit</button>
+					</form>
+				</div>
+			</>
+		)
+	}
 }

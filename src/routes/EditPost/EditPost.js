@@ -111,7 +111,7 @@ export default class EditPost extends Component {
 
 			AuthApiService.updatePost(post)
 				.then(result => {
-				this.context.getData()
+				this.context.getDataWithToken()
 				this.props.history.push('/')
 			})
 			.catch(error => 
@@ -151,39 +151,33 @@ export default class EditPost extends Component {
 	}
 	
 	  return folders ? (
-		  <>
-		<div role="alert">{error && <p className="red">{error}</p>}</div>
+		<>
+		<div role="alert">{error && <p>{error}</p>}</div>
 		<div className="EditPost__form_container">
-		  <form onSubmit={e => this.handleSubmit(e)} className="EditPost__form">
-			  {/* <label htmlFor='post_input_field'>Name</label> */}
-			  <input className="EditPost__input" id='post_input_field' type='text' value={this.state.post_name} onChange={e => {
-				  this.updatePostName(e.target.value)
-				  this.updateFolderId(firstFolderId)
-				  }}></input>
-			
+			<form onSubmit={e => this.handleSubmit(e)} className="EditPost__form">
+				<input className="EditPost__input" id='post_input_field' type='text' value={this.state.post_name} onChange={e => {
+					this.updatePostName(e.target.value)
+					this.updateFolderId(firstFolderId)
+					}}></input>
+				
+				<select className="EditPost__select" id='folder_select_menu' onChange={e => this.updatePostFolder(e.target.value, folders)}>
+					{folders.map(folder => (
+						<option className="EditPost__option" value={folder.folder_name} key={`folder.folder_name_${this.randomKey()}`}>{folder.folder_name}</option>
+					))}
+				</select>
 
-			  {/* <label htmlFor='folder_select_menu'>Folder</label> */}
-			  <select className="EditPost__select" id='folder_select_menu' onChange={e => this.updatePostFolder(e.target.value, folders)}>
-				  {folders.map(folder => (
-					  <option className="EditPost__option" value={folder.folder_name} key={`folder.folder_name_${this.randomKey()}`}>{folder.folder_name}</option>
-				  ))}
-			  </select>
+				<textarea className="EditPost__textarea" id='content_area' type='text' value={this.state.content} onChange={e => this.updatePostContent(e.target.value)}></textarea>
+				
+				<select className="EditPost__select" id='post_visibility_option' onChange={e => this.updatePostVisibility(e.target.value, folders)}>
+						<option className="EditPost__option" value='Private' key={'Private'}>Private</option>
+						<option className="EditPost__option" value='Public' key={'Public'}>Public</option>
+				</select>
 
-			  {/* <label htmlFor='content_area'>Content</label> */}
-			  <textarea className="EditPost__textarea" id='content_area' type='text' value={this.state.content} onChange={e => this.updatePostContent(e.target.value)}></textarea>
-			  
-			  {/* <label htmlFor='post_visibility_select_menu'>Visibility</label> */}
-			  <select className="EditPost__select" id='post_visibility_option' onChange={e => this.updatePostVisibility(e.target.value, folders)}>
-					  <option className="EditPost__option" value='Private' key={'Private'}>Private</option>
-					  <option className="EditPost__option" value='Public' key={'Public'}>Public</option>
-			  </select>
-
-
-			  <button className="EditPost__button" type='submit' disabled={
-					  this.validateSubmission() }>Submit</button>
-		  </form>
-		  </div>
-		  </>
+				<button className="EditPost__button" type='submit' disabled={
+						this.validateSubmission() }>Submit</button>
+			</form>
+		</div>
+		</>
 
 	  ) : ('');
 	}

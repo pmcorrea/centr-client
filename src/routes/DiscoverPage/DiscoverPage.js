@@ -66,35 +66,26 @@ export default class DiscoverPage extends Component {
       
     return this.state.notFollowing ? (
 	<>
-	<div className="page_title_container">
-       {/* <h3 className="page_title">Discover</h3> */}
-      </div>
 		<ul className="discover_ul">
 		<p className="section_headers">Discover</p> 
 			{notFollowing.map(user => (
-				<li className="discover_li" key={user.user_name}>
-					
+				<li className="discover_li" key={user.user_name}>	
 					<div className="discover_box">
-					{/* <FontAwesomeIcon className="profile_img" icon='user-alt' size="2x"/> */}
 						<img src={user.avatar} className="avatar" alt="avatar"></img>
 						
 						<h2 className="connection_name">
 							{user.user_name}
 						</h2>
 					
-
-						
-
 						<button className='discover_follow_button' 
 							onClick={() => {
 								this.sendFollowRequest(user)
-							}}
-						>
+							}}>
 							<FontAwesomeIcon icon='plus' size="1x"/>
 						</button>
 					</div>
 				</li>
-          ))}
+			))}
 		</ul>
 	</>	
     ) : ('')

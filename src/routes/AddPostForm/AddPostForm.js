@@ -87,7 +87,7 @@ componentDidMount() {
 
 		AuthApiService.postPost(post)
 			.then(result => {
-			this.context.getData()
+			this.context.getDataWithToken()
 			this.props.history.push('/folders')
 		})
 		.catch(error => 
@@ -126,43 +126,42 @@ componentDidMount() {
 		firstFolderId = firstFolder['id']
 	}
 	
-	  return folders ? (
-		  <>
-		  {/* <p className="section_headers">Post</p> */}
-
-		<div role="alert">{error && <p className="red">{error}</p>}</div>
+	return folders 
+		? (<>
+			<div role="alert">{error && <p>{error}</p>}</div>
+			
 			<div className="AddPost__form_contaner">
+				<form onSubmit={e => this.handleSubmit(e)} className="AddPost__form">
+					<label htmlFor="post_input_field" id="folder_select_menu_label">post title</label>
+					<input className="AddPost__input" placeholder="post title" 
+						id='post_input_field' type='text' onChange={e => {
+							this.updatePostName(e.target.value)
+							this.updateFolderId(firstFolderId)
+						}}></input>
 
-		  <form onSubmit={e => this.handleSubmit(e)} className="AddPost__form">
-			
-		  <label htmlFor="post_input_field" id="folder_select_menu_label">post title</label>
-			  <input className="AddPost__input" placeholder="post title" id='post_input_field' type='text' onChange={e => {
-				  this.updatePostName(e.target.value)
-				  this.updateFolderId(firstFolderId)
-				  }}></input>
-			
+					<label htmlFor="folder_select_menu" id="folder_select_menu_label">select folder</label>
+					<select className="AddPost__select" id='folder_select_menu' onChange={e => this.updatePostFolder(e.target.value, folders)}>
+						{folders.map(folder => (
+							<option className="AddPost__option" value={folder.folder_name} 
+								key={`folder.folder_name_${this.randomKey()}`}>{folder.folder_name}</option>
+						))}
+					</select>
 
-			  <label htmlFor="folder_select_menu" id="folder_select_menu_label">select folder</label>
-			  <select className="AddPost__select" id='folder_select_menu' onChange={e => this.updatePostFolder(e.target.value, folders)}>
-				  {folders.map(folder => (
-					  <option className="AddPost__option" value={folder.folder_name} key={`folder.folder_name_${this.randomKey()}`}>{folder.folder_name}</option>
-				  ))}
-			  </select>
+					<label htmlFor="post_visibility_option" id="folder_select_menu_label">select visibility</label>
+					<select className="AddPost__select" id='post_visibility_option' onChange={e => this.updatePostVisibility(e.target.value, folders)}>
+							<option className="AddPost__option" value='Private' key={'Private'}>Private</option>
+							<option className="AddPost__option" value='Public' key={'Public'}>Public</option>
+					</select>
 
-			  <label htmlFor="post_visibility_option" id="folder_select_menu_label">select visibility</label>
-			  <select className="AddPost__select" id='post_visibility_option' onChange={e => this.updatePostVisibility(e.target.value, folders)}>
-					  <option className="AddPost__option" value='Private' key={'Private'}>Private</option>
-					  <option className="AddPost__option" value='Public' key={'Public'}>Public</option>
-			  </select>
-
-			  <textarea className="AddPost__textarea" placeholder="add some content..." id='content_area' type='text' onChange={e => this.updatePostContent(e.target.value)}></textarea>
-			  
-			  <button className="AddPost__button" type='submit' disabled={
-					  this.validateSubmission() }>submit</button>
-		  </form>
-		  </div>
-		  </>
-
-	  ) : ('');
+					<textarea className="AddPost__textarea" placeholder="add some content..." 
+						id='content_area' type='text' 
+						onChange={e => this.updatePostContent(e.target.value)}></textarea>
+						
+					<button className="AddPost__button" type='submit' 
+						disabled={this.validateSubmission() }>submit</button>
+				</form>
+			</div>
+		</>) 
+		: ('');
 	}
 }

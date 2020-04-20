@@ -11,7 +11,7 @@ export default class PublicPost extends Component {
 	handleDeletePost(value) {
 		AuthApiService.handleDeletePost(value)
 		.then(result => {
-			this.context.getData()
+			this.context.getDataWithToken()
 		})
 		.catch(error => {
 			console.error(error)
@@ -20,34 +20,28 @@ export default class PublicPost extends Component {
 
 
 	render() {
-
 		let someDateString = this.props.modified 
 		let someDate = new Date(someDateString)
 		someDate = someDate.toLocaleString()
 
 		return (
-		<div className="PublicPost">
-							{/* <p className="back_button" onClick={() => this.props.history.goBack()}>{`<`}</p> */}
+			<div className="PublicPost">
+				<div className="PublicPost_container">
+					<img src={this.props.avatar} alt="avatar" className="public_post_avatar"></img>
 
+					<h2 className="PublicPost__title">
+						{this.props.name}
+					</h2>
 
-			<div className="PublicPost_container">
-			<img src={this.props.avatar} alt="avatar" className="public_post_avatar"></img>
-
-				<h2 className="PublicPost__title">
-					{this.props.name}
-				</h2>
-
-				<div className="PublicPost__dates">
-					<div className="PublicPost__dates-modified">
-						<span className="PublicPost_Date">
-							{someDate}
-						</span>
+					<div className="PublicPost__dates">
+						<div className="PublicPost__dates-modified">
+							<span className="PublicPost_Date">
+								{someDate}
+							</span>
+						</div>
 					</div>
 				</div>
-
 			</div>
-
-		</div>
 		);
 	}
 }

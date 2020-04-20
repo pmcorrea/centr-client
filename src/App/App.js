@@ -33,6 +33,7 @@ import "./App.css";
 export default class App extends Component {
 	constructor() {
 		super()
+		// App State will serve as context
 		this.state = {
 			posts: [],
 			publicPosts: [],
@@ -42,7 +43,7 @@ export default class App extends Component {
 			requests: false,
 
 			setAuthToken: authToken => this.setState({ authToken }),
-			getData: () => {
+			getDataWithToken: () => {
 				let token = TokenHelpers.getAuthToken();
 				
 				AuthApiService.postLogin({
@@ -68,13 +69,13 @@ export default class App extends Component {
 				AuthApiService.getFollowRequests()
 				.then(followRequests => {
 					if (followRequests.length !== 0) {
-					this.setState({
-					requests: true
-					})
+						this.setState({
+							requests: true
+						})
 					} else {
-					this.setState({
-					requests: false
-					})
+						this.setState({
+							requests: false
+						})
 					}
 				})
 				.catch(error => {
@@ -84,30 +85,7 @@ export default class App extends Component {
 		}
 	}
 
-	// Methods
-	setRequests() {
-		// change
-		AuthApiService.getFollowRequests()
-		.then(followRequests => {
-
-			if (followRequests.length !== 0) {
-				this.setState({
-					requests: true
-				})
-      		} else {
-				this.setState({
-					requests: false
-				})
-	  		}
-
-  		})
-		.catch(error => {
-			this.setState({ error }, () => console.log(this.state.error))
-		})
-	}
-
 	setConnections() {
-		// change
 		AuthApiService.getConnections()
 		.then(connections => {
 			if (connections) {
@@ -143,9 +121,9 @@ export default class App extends Component {
 
 	// Lifecycle
 	componentDidMount() {
-		this.state.getData()
+		this.state.getDataWithToken()
 		this.setConnections()
-		this.setRequests()
+		this.state.setRequests()
 	}
 
 	// Render Methods
@@ -216,8 +194,7 @@ export default class App extends Component {
 			/>
 
 			<Route
-				path="/"
-				exact
+				path="/feed"
 				render={routeProps => {
 					if (!TokenHelpers.hasAuthToken()) {
 						return <Redirect to="/login" />
@@ -257,7 +234,8 @@ export default class App extends Component {
 			/>
 
 			<Route 
-				path="/login" 
+				path="/" 
+				exact
 				component={LoginPage} 
 			/>
 
@@ -265,11 +243,6 @@ export default class App extends Component {
 				path="/register" 
 				component={RegisterPage} 
 			/>
-
-			{/* <Route 
-				path="/PublicPost/:postId" 
-				component={PublicPostRoute} 
-			/> */}
 
 			<Route
 				path="/PublicPost/:postId"
@@ -284,12 +257,12 @@ export default class App extends Component {
 		);
 	}
 
-	renderButtons() {
+	renderbuttons() {
 		return (
 		<>
 			<button className="home">
-				<Link to="/">
-					{window.location.pathname === "/" 
+				<Link to="/feed">
+					{window.location.pathname === "/feed" 
 					? <FontAwesomeIcon className="icons" icon='home' size="2x" style={{color: "orange"}}/>
 					: <FontAwesomeIcon className="icons" icon='home' size="2x" />}
 				</Link>
@@ -315,14 +288,6 @@ export default class App extends Component {
 				</Link>
 			</button>
 
-			{/* <button className="sticky-note">
-				<Link to="/add-post">
-					{window.location.pathname === "/add-post" 
-					? <FontAwesomeIcon className="icons" icon='plus' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='plus' size="2x" />}
-				</Link>
-			</button> */}
-
 			<button className="folder">
 				<Link to="/folders">
 					{window.location.pathname === "/folders" 
@@ -338,19 +303,6 @@ export default class App extends Component {
 					: <FontAwesomeIcon className="icons" icon='user-circle' size="2x" />}
 				</Link>
 			</button>
-
-			{/* <button
-				className="logout"
-				onClick={() => {
-					TokenHelpers.clearAuthToken()
-					this.setState({ authToken: null, folders: [], posts: [], requests: false })
-				}}>
-				<Link to="/login" >
-					{window.location.pathname === "/login" 
-					? <FontAwesomeIcon className="icons" icon='sign-out-alt' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='sign-out-alt' size="2x" />}
-				</Link>
-			</button> */}
 		</>
 		)
 	}
@@ -359,10 +311,6 @@ export default class App extends Component {
 		return (
 			<MainContext.Provider value={this.state}>
 				<div className="App">
-					{/* <header className="App__header">
-						<h1>CENTR</h1>
-					</header> */}
-
 					<main className="App__main">
 						{this.renderMainRoutes()}
 					</main>
@@ -371,7 +319,7 @@ export default class App extends Component {
 					? ""
 					:
 						<div className='icons_bar'>
-						{this.renderButtons()}
+						{this.renderbuttons()}
 						</div>
 					}
 				</div>

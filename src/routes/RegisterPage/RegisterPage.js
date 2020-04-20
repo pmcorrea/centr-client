@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { Button, Input } from "../../Utils/Utils";
 import './RegisterPage.css'
 import MainContext from "../../contexts/MainContext";
 import AuthApiService from "../../services/auth-api-service";
@@ -95,7 +94,6 @@ export default class RegisterPage extends Component {
 
 	validatePassword() {
 		let pw = this.state.password
-		// let pwPattern = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
 		let pwPattern = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/
 		let whiteSpacePattern = /(\s)+/
 		let length = pw.length >= 8
@@ -121,7 +119,7 @@ export default class RegisterPage extends Component {
 		return match
 	}
 
-	disableSubmitButton() {
+	disableSubmitbutton() {
 		if (!this.state.showPasswordValidationBox && !this.state.username_exist) {
 			let match = this.matchPasswords()
 
@@ -136,88 +134,65 @@ export default class RegisterPage extends Component {
 
 
 	render() {
-
-		
-
-
 		const { error } = this.state;
 		const { showPasswordValidationBox } = this.state;
 		return (
 			<>
 			<div className="registration__container">
-
 				<h1>REGISTER</h1>
 				<img src={BG} className="bg_image" alt="background"/>
+				
 				<div className="RegisterForm__form_contianer">
+					<form className="RegisterForm" onSubmit={e => this.handleRegister(e)} id="form_register">
+						<div role="alert">{error && <p>{error}</p>}</div>
+
+						<input 
+							className='input_field'
+							required 
+							placeholder="username"
+							style={{
+								borderColor: this.state.username_exist ? 'red' : 'green',
+								textDecoration: this.state.username_exist ? 'line-through' : 'none'
+							}}
+							name="user_name" id="LoginForm__user_name" 
+							onChange={e => this.setUsername(e.target.value)}></input>
+
+						<input
+							className='input_field'
+							required
+							name="password"
+							type="password"
+							placeholder="password"
+							id="LoginForm__password"
+							style={{borderColor: this.disableSubmitbutton() ? 'red' : 'green'}}
+							onChange={e => {this.setPassword(e.target.value)}}></input>
 				
-				<form className="RegisterForm" onSubmit={e => this.handleRegister(e)} id="form_register">
-	
-				<div role="alert">{error && <p className="red">{error}</p>}</div>
+						<input
+							className='input_field'
+							required
+							name="password_confirm"
+							type="password"
+							placeholder="password"
+							id="LoginForm__password_confirm"
+							style={{borderColor: this.disableSubmitbutton() ? 'red' : 'green'}}
+							onChange={e => this.setPasswordConfirm(e.target.value)}></input>
 
-				<div className="user_name">
-					{/* <label htmlFor="LoginForm__user_name">User name</label> */}
-					<Input 
-					className='input_field'
-					required 
-					placeholder="username"
-					style={{
-						borderColor: this.state.username_exist ? 'red' : 'green',
-						textDecoration: this.state.username_exist ? 'line-through' : 'none'
-					}}
-					name="user_name" id="LoginForm__user_name" onChange={e => this.setUsername(e.target.value)}></Input>
+						<button className='register_button' type="submit" 
+							disabled={this.disableSubmitbutton()}
+							>Register</button>
+
+						{showPasswordValidationBox && 
+							<div role="alert" className="registration__validation_box">
+								<p className="validation_rules">Password must include:</p>
+								<p className="validation_rules">8 characters minimum, no spaces</p>
+								<p className="validation_rules">Uppercase and lowercase letters</p>
+								<p className="validation_rules">Special symbol and numbers</p>
+							</div>
+						}
+
+      				</form>
 				</div>
-
-				<div className="password">
-				{/* <label htmlFor="LoginForm__password">Password</label> */}
-				<Input
-					className='input_field'
-					required
-					name="password"
-					type="password"
-					placeholder="password"
-					id="LoginForm__password"
-					style={{borderColor: this.disableSubmitButton() ? 'red' : 'green'}}
-					onChange={
-						e => {
-							this.setPassword(e.target.value)
-						}}
-						></Input>
-				<Input
-				className='input_field'
-				required
-				name="password_confirm"
-				type="password"
-				placeholder="password"
-				id="LoginForm__password_confirm"
-				style={{borderColor: this.disableSubmitButton() ? 'red' : 'green'}}
-				onChange={
-					e => 
-					this.setPasswordConfirm(e.target.value)
-				}
-				></Input>
-				</div>
-
-				{/* <label id="file-upload_label">Profile pic</label>
-				<Input id="file-upload" type="file" onChange={(e) => this.setProfilePic(e.target)}></Input> */}
-
-				
-
-				<Button className='register_button' type="submit" disabled={
-					this.disableSubmitButton()}
-					>Register</Button>
-
-{showPasswordValidationBox && 
-				<div role="alert" className="registration__validation_box">
-					<p className="validation_rules">Password must include:</p>
-					<p className="validation_rules">8 characters minimum, no spaces</p>
-					<p className="validation_rules">Uppercase and lowercase letters</p>
-					<p className="validation_rules">Special symbol and numbers</p>
-				</div>
-				}
-
-      </form>
-				</div>
-	  </div>
+	  		</div>
 			</>
 		)
 	}

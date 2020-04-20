@@ -14,13 +14,10 @@
   position: relative;
   width: 100vw;
   height: 50px;
-  /* padding: 0px 20px 20px 0px; */
 }
 
 .PostsList__add-button {
   display: flex;
-  /* position: absolute; */
-  /* right: 20px; */
   font-size: 40px;
   color: black;
 }

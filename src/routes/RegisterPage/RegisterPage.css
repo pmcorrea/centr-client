@@ -1,7 +1,3 @@
-/* label {
-	color: #eee;
-} */
-
 
 .RegisterForm__form_contianer {
 	flex-direction: column;
@@ -13,7 +9,6 @@
 }
 
 .RegisterForm {
-	/* background-color: rgba(214, 214, 214, 0.856); */
 	width: 400px;
 	margin: 0 auto;
 	width: 80vw;
@@ -27,7 +22,6 @@
 	border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
 	margin-top: 10px;
 	color: black;
-	/* background-color: rgb(255, 255, 255); */
 	font-size: 20px;
 	padding: 8px;
 	width: 100%;
@@ -51,7 +45,12 @@
 	margin-top: 10px; 
 	font-weight: bold;
 	cursor: pointer;
+	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
 }
+
+.register_button:hover {
+	color: orange;
+  }
 
 .register_button:disabled {
 	background-color: rgb(147, 122, 163);

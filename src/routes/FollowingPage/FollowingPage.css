@@ -10,7 +10,6 @@
 .following_ul, .request_ul {
 	display: flex;
 	flex-direction: column;
-	/* flex-wrap: wrap; */
 	width: 100vw;
 }
 
@@ -18,22 +17,14 @@
 	padding-bottom: 80px;
 }
 
-.following_li {
-	/* padding-bottom: 80px; */
-}
-
 .following_li, .request_li {
 	display: flex;
-	/* flex-direction: row; */
-	/* height: 200px; */
 	text-decoration: none;
-	/* flex-basis: 50%; */
 }
 
 .following_box, .request_box {
 	color: black;
 	background-color: #eee;
-	/* border: #eee solid 2px; */
 	margin: 20px;
 	margin-bottom: 10px;
 	margin-top: 10px;
@@ -47,10 +38,6 @@
 	align-items: center;
 	border-radius: 10px;
 	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
-}
-
-.request_box {
-	/* background-color: orange; */
 }
 
 .connection_name {
@@ -67,7 +54,6 @@
 	border-radius: 50%;
 	background-color: #eee;
 	color: black;
-	/* width: 100%; */
 	margin: 0px;
 	height: 30px;
 	width: 30px;
@@ -82,7 +68,6 @@
 	border-radius: 50%;
 	background-color: rgb(112, 39, 161);
 	color: white;
-	/* width: 100%; */
 	margin: 0px;
 	height: 30px;
 	width: 30px;
@@ -91,26 +76,12 @@
 	cursor: pointer;
 }
 
-/* .unfollow_button:active {
-	position: relative;
-	border: none;
-	border-radius: 5px;
-	background-color: red;
-	color: white;
-} */
-
 .unfollow_button:hover {
 	background-color: orange;
 	border: orange;
 	color: white;
 }
-/* .approve_button:active {
-	position: relative;
-	border: none;
-	border-radius: 5px;
-	background-color: green;
-	color: white;
-} */
+
 .approve_button:hover {
 	background-color: orange;
 	border: orange;

@@ -20,7 +20,6 @@
 	width: 100%;
 	border: none;
   border-radius: 0px;
-  /* margin-top: 10px; */
   margin-bottom: 30px;
   }
 
@@ -61,7 +60,6 @@
   border-left: 0px;
   border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
   width: 100%; 
-  /* margin-top: 10px; */
   font-size: 15px;
   color: black;
   background-color: rgb(255, 255, 255);
@@ -76,21 +74,6 @@
     color: gray;
     font-size: 15px;
   }
-
-  /* .AddPost__button {
-	padding: 8px;
-  border-radius: 0px;
-  margin-top: 10px;
-	width: 100%; 
-	padding: 10px;
-	font-size: 20px;
-	background-color: black;
-	color: white;
-	border-radius: 0px;
-	border: none;
-	margin-top: 10px; 
-	font-weight: 400;
-  } */
 
 .AddPost__button {
 	font-size: 15px;

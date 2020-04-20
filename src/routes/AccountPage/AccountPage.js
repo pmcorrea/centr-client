@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./AccountPage.css";
-import { Button, Input } from "../../Utils/Utils";
 import AuthApiService from "../../services/auth-api-service";
 import MainContext from "../../contexts/MainContext";
 import TokenHelpers from "../../services/token-helpers";
@@ -114,7 +113,6 @@ export default class AccountPage extends Component {
 	}
 
 	checkUploadResult(result) {
-		// console.log(result)
 		if (result.event === 'success') {
 
 			
@@ -128,67 +126,59 @@ export default class AccountPage extends Component {
 		}
 	}
 
-  render() {
-    const { error } = this.state;
-	const { currentVisibility } = this.state;
+	render() {
+    	const { error } = this.state;
+		const { currentVisibility } = this.state;
 
-	let widget = window.cloudinary.createUploadWidget({ 
-		cloudName: "pmcorrea", 
-		uploadPreset: "heg13zhh" }, 
-		(error, result) => { this.checkUploadResult(result)});
+		let widget = window.cloudinary.createUploadWidget({ 
+			cloudName: "pmcorrea", 
+			uploadPreset: "heg13zhh" }, 
+			(error, result) => { this.checkUploadResult(result)}
+		)
 
+		return (
+			<>
+				<div className="profile_box">
+					<div className="profile_subbox">			
+						<img src={this.state.avatar} className="profile_box_avatar" alt="profile avatar"></img>
+						<button type='button' className="change_avatar_button" onClick={() => this.showWidget(widget)}>edit</button>
+					</div>
+					
+					<Link to="/">
+						<button className="AccountPage__logout" type="button" onClick={() => {
+							TokenHelpers.clearAuthToken()
+								this.setState({ authToken: null, folders: [], posts: [], requests: false })
+						}}>
+							<FontAwesomeIcon className=".AccountPage__logout" icon='sign-out-alt' size="2x" />
+						</button>
+					</Link>
+				</div>
 
-	return (
-	<>
-		<div className="page_title_container">
-       {/* <h3 className="page_title">Account</h3> */}
-      </div>
-
-	<div className="profile_box">
-	  	<div className="profile_subbox">			
-			<img src={this.state.avatar} className="profile_box_avatar" alt="profile avatar"></img>
-			<button type='button' className="change_avatar_button" onClick={() => this.showWidget(widget)}>edit</button>
-		</div>
+				<div className="validation_box" role="alert">{error && <p>{error}</p>}</div>
 		
-		<Link to="/login">
-				<button className="AccountPage__logout" type="button" onClick={() => {
-					TokenHelpers.clearAuthToken()
-					this.setState({ authToken: null, folders: [], posts: [], requests: false })
-					}}>
-					<FontAwesomeIcon className=".AccountPage__logout" icon='sign-out-alt' size="2x" />
-				</button>
-			</Link>
-	</div>
+				<div className="AccountPage__forms">
+					<form className="AccountPage__changePasswordForm" onSubmit={e => this.handleChangePassword(e)}>
+						<input className="AccountPage__input" placeholder='old password' type="password" onChange={e => this.setOldPassword(e.target.value)}></input>
+						<input className="AccountPage__input" placeholder='new password' type="password" onChange={e => this.setNewPassword(e.target.value)}></input>
+						<input className="AccountPage__input" placeholder='new password' type="password" onChange={e => this.setConfirmNewPassword(e.target.value)}></input>
+						<button className="AccountPage__button" type="submit">change password</button>
+					</form>
 
+					<form className="AccountPage__changeVisibilityForm" onSubmit={e => this.handleChangeVisibility(e)}>
+						<p id="AccountPage__vis_status">You are currently: {currentVisibility}</p>
+						<select className="AccountPage__select" id='changeVisibilityForm_menu' onChange={e => this.setVisibility(e.target.value)}>
+							<option className="AccountPage__option" value='Public' key={'Public'}>Public</option>
+							<option className="AccountPage__option" value='Private' key={'Private'}>Private</option>
+						</select>
+						<button className="AccountPage__button" type="submit">change visibility</button>
+					</form>
 
-
-
-		<div className="validation_box" role="alert">{error && <p className="red">{error}</p>}</div>
-		
-		<div className="AccountPage__forms">
-		<form className="AccountPage__changePasswordForm" onSubmit={e => this.handleChangePassword(e)}>
-			<Input className="AccountPage__input" placeholder='old password' type="password" onChange={e => this.setOldPassword(e.target.value)}></Input>
-			<Input className="AccountPage__input" placeholder='new password' type="password" onChange={e => this.setNewPassword(e.target.value)}></Input>
-			<Input className="AccountPage__input" placeholder='new password' type="password" onChange={e => this.setConfirmNewPassword(e.target.value)}></Input>
-			<Button className="AccountPage__button" type="submit">change password</Button>
-		</form>
-
-		<form className="AccountPage__changeVisibilityForm" onSubmit={e => this.handleChangeVisibility(e)}>
-			<p id="AccountPage__vis_status">You are currently: {currentVisibility}</p>
-			<select className="AccountPage__select" id='changeVisibilityForm_menu' onChange={e => this.setVisibility(e.target.value)}>
-				<option className="AccountPage__option" value='Public' key={'Public'}>Public</option>
-				<option className="AccountPage__option" value='Private' key={'Private'}>Private</option>
-			</select>
-			<Button className="AccountPage__button" type="submit">change visibility</Button>
-		</form>
-
-
-		<form className="AccountPage__deleteAccountForm" onSubmit={e => this.handleDeleteAccount(e)}>
-			<Input className="AccountPage__input" placeholder='confirm username' onChange={e => this.setConfirmUsername(e.target.value)}></Input>
-			<Button className="AccountPage__button" type="submit">delete account</Button>
-		</form>
-		</div>
-	</>
-	) 
+					<form className="AccountPage__deleteAccountForm" onSubmit={e => this.handleDeleteAccount(e)}>
+						<input className="AccountPage__input" placeholder='confirm username' onChange={e => this.setConfirmUsername(e.target.value)}></input>
+						<button className="AccountPage__button" type="submit">delete account</button>
+					</form>
+				</div>
+			</>
+		) 
 	}
 }

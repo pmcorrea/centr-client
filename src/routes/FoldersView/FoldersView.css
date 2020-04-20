@@ -34,7 +34,7 @@
 }
 
 .FoldersView__button-wrapper>a {
-  /* text-align: center; */
+
   text-decoration: none;
   color: white;
   font-weight: bold;
@@ -56,12 +56,9 @@
 
 .FoldersView__folder-link {
   color: rgb(112, 39, 161);
-  /* display: block; */
   font-weight: bold;
   font-size: 20px;
   text-decoration: none;
-  /* position: relative;
-  margin: 0 auto; */
 }
 .FoldersView__folder-link:hover {
   color: #FFB72F;
@@ -81,16 +78,13 @@
   background-color: #eee;
   padding: 10px;
   border-radius: 5px;
-  /* display: inline-block; */
+  
   margin-bottom: 20px;
   box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
 }
 
 .FoldersView__num-posts {
   color: black;
-  /* display: inline-block; */
-  /* position: absolute; */
-  /* right: 100px; */
   font-size: 20px;
   font-weight: bold;
   margin-right: 20px;
@@ -101,15 +95,11 @@
   background-color:transparent;
   border: 0;
   color: black;
-  /* right: 20px; */
-  /* top: 10px; */
   font-size: 20px;
   height: 20px;
-  /* position: absolute; */
   width: calc(var(--post-height));
 }
 .Folder__delete:hover {
-  /* background-color: #bd0909; */
   color: orange;
   cursor: pointer;
   font-weight: bold;

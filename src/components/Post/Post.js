@@ -13,16 +13,14 @@ export default class Post extends Component {
 	handleDeletePost(value) {
 		AuthApiService.handleDeletePost(value)
 		.then(result => {
-			this.context.getData()
+			this.context.getDataWithToken()
 		})
 		.catch(error => {
 			console.error(error)
 		})  
 	}
 
-
 	render() {
-
 		let modified = new Date(this.props.modified)
 		let date = modified.getDate()
 		let month = modified.getMonth()
@@ -30,44 +28,43 @@ export default class Post extends Component {
 
 		return (
 			<>
-		{/* <p className="discover_section_headers">My Notes</p>  */}
 			<div className="Post">
-			<div className="Post__info">
-				<h2 className="Post__title">
-					<Link to={`/post/${this.props.id}`}>{this.props.name}</Link>
-				</h2>
+				<div className="Post__info">
+					<h2 className="Post__title">
+						<Link to={`/post/${this.props.id}`}>{this.props.name}</Link>
+					</h2>
 
-				<div className="Post__dates-modified">
-					<span className="Date">
-						{`${month}/${date}/${year}`}
-					</span>
+					<div className="Post__dates-modified">
+						<span className="Date">
+							{`${month}/${date}/${year}`}
+						</span>
+					</div>
+
+					<div className="Post__visibility_div">
+						<p className="Post__visibility">
+							{this.props.visibility}
+						</p>
+					</div>
 				</div>
 
-				<div className="Post__visibility_div">
-					<p className="Post__visibility">
-						{this.props.visibility}
-					</p>
+				<div className="Post__buttons_container">
+					<button
+						className="Post__edit_button"
+						type="button">
+						<Link to={`/edit/${this.props.id}`}>
+							<FontAwesomeIcon className="Folder__delete" icon="edit"/>
+						</Link>
+					</button>
+
+					<button
+						className="Post__delete_button"
+						type="button"
+						onClick={() => this.handleDeletePost(this.props.id)}>
+						<FontAwesomeIcon className="Folder__delete" icon="trash-alt"/>
+					</button>
 				</div>
 			</div>
-
-			<div className="Post__buttons_container">
-				<button
-					className="Post__edit_button"
-					type="button">
-					<Link to={`/edit/${this.props.id}`}>
-						<FontAwesomeIcon className="Folder__delete" icon="edit"/>
-					</Link>
-				</button>
-
-				<button
-					className="Post__delete_button"
-					type="button"
-					onClick={() => this.handleDeletePost(this.props.id)}>
-					<FontAwesomeIcon className="Folder__delete" icon="trash-alt"/>
-				</button>
-			</div>
-		</div>
-		</>
+			</>
 		);
 	}
 }

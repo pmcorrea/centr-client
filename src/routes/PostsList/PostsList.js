@@ -12,7 +12,7 @@ export default class PostsList extends Component {
 	static contextType = MainContext;
 
 	componentDidMount() {
-		this.context.getData()
+		this.context.getDataWithToken()
 	}
 
 	render() {
@@ -25,7 +25,7 @@ export default class PostsList extends Component {
 
 		return posts ? (
 			<section className="PostsList">
-				<p className="section_headers">Notes</p>
+				<p className="section_headers">Posts</p>
 				
 				<ul className="PostList_ul">
 					{posts.map(post => (

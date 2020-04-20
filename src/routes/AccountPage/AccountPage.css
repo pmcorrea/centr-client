@@ -25,7 +25,6 @@
 
 .AccountPage__deleteAccountForm, .AccountPage__changePasswordForm, .AccountPage__changeVisibilityForm {
 	background-color: white;
-	/* width: 400px; */
 	margin: 0 auto;
 	margin-bottom: 40px;
 	
@@ -38,7 +37,6 @@
 	font-size: 15px;
 	padding: 8px;
 	width: 100%;
-	/* border: none; */
 	border-radius: 0px;
 	cursor: pointer;
   }
@@ -60,7 +58,6 @@
   border-left: 0px;
   border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
   width: 100%; 
-  /* margin-top: 10px; */
   font-size: 20px;
   color: black;
   background-color: rgb(255, 255, 255);
@@ -113,7 +110,6 @@
 
 .profile_box {
 	display: flex;
-	/* justify-content: center; */
 	align-items: center;
 }
 
