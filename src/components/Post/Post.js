@@ -14,6 +14,7 @@ export default class Post extends Component {
 		AuthApiService.handleDeletePost(value)
 		.then(result => {
 			this.context.getDataWithToken()
+			this.props.history.goBack()
 		})
 		.catch(error => {
 			console.error(error)

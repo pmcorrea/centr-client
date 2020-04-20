@@ -85,6 +85,8 @@ export default class App extends Component {
 		}
 	}
 
+
+
 	setConnections() {
 		AuthApiService.getConnections()
 		.then(connections => {

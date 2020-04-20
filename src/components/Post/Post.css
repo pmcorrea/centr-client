@@ -8,9 +8,10 @@
   background-color: #eee;
   color: #cacaca;
   width: 90vw;
-  padding: 10px;
+  padding: 15px;
   margin: 10px auto;
-  border-radius: 5px;;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
 }
 
 .Post__edit_button {
@@ -46,6 +47,7 @@
 
 .Post__title {
   margin: 0px 0px 10px;
+  font-size: 15px;
 }
 
 .Post__title a {

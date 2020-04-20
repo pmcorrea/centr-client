@@ -88,7 +88,7 @@ componentDidMount() {
 		AuthApiService.postPost(post)
 			.then(result => {
 			this.context.getDataWithToken()
-			this.props.history.push('/folders')
+			this.props.history.goBack()
 		})
 		.catch(error => 
 			error => this.setState({error})

@@ -112,7 +112,7 @@ export default class EditPost extends Component {
 			AuthApiService.updatePost(post)
 				.then(result => {
 				this.context.getDataWithToken()
-				this.props.history.push('/')
+				this.props.history.goBack()
 			})
 			.catch(error => 
 				error => this.setState({error})
