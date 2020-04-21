@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostWithContent component renders a .PostWithContent by default 1`] = `""`;
+
+exports[`PostWithContent component renders a Post with post prop 1`] = `null`;
+
+exports[`PostWithContent component splits the content by \\n or \\n\\r, with a p foreach 1`] = `null`;
+
+exports[`PostWithContent component splits the content by \\n or \\n\\r, with a p foreach 2`] = `null`;

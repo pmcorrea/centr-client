@@ -14,11 +14,6 @@
 	margin-bottom: 40px;
   }
 
-  .EditPost__input {
-	  margin-bottom: 10px;
-  }
-
-.EditPost__input,
 .EditPost__select, 
 .EditPost__option,
 .EditPost__button {
@@ -60,22 +55,6 @@
   .EditPost__textarea:hover{
     border-color: orange;
   }
-
-  .EditPost__input {
-	border-top: 0px;
-  border-right: 0px;
-  border-left: 0px;
-  border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
-  width: 100%; 
-  margin-top: 10px;
-  font-size: 20px;
-  color: black;
-  background-color: rgb(255, 255, 255);
-  }
-
-  .EditPost__input:hover {
-	border-color: orange;
-}
 
   .EditPost__button {
 	width: 100%; 

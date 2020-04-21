@@ -118,7 +118,7 @@ componentDidMount() {
 
   render() {
 	const { error } = this.state;
-	const {folders} = this.context;
+	const {folders=[]} = this.context;
 	let firstFolder = folders[0]
 	let firstFolderId;
 	  
@@ -132,7 +132,7 @@ componentDidMount() {
 			
 			<div className="AddPost__form_contaner">
 				<form onSubmit={e => this.handleSubmit(e)} className="AddPost__form">
-					<label htmlFor="post_input_field" id="folder_select_menu_label">post title</label>
+					{/* <label htmlFor="post_input_field" id="folder_select_menu_label">post title</label> */}
 					<input className="AddPost__input" placeholder="post title" 
 						id='post_input_field' type='text' onChange={e => {
 							this.updatePostName(e.target.value)

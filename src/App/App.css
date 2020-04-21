@@ -1,14 +1,13 @@
-
 html {
   background-color: rgba(214, 214, 214, 0.856);
 }
 
 .App {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color:  white;
+  background-color: white;
   z-index: 0;
 }
 
@@ -24,7 +23,7 @@ html {
 }
 
 .App__header a {
-  color:black;
+  color: black;
 }
 
 .App__main {
@@ -49,10 +48,16 @@ html {
   color: white;
 }
 
-.home, .logout, .folder, .account, .discover, .following, .sticky-note {
+.home,
+.logout,
+.folder,
+.account,
+.discover,
+.following,
+.sticky-note {
   background-color: transparent;
   border: none;
-  color: black
+  color: black;
 }
 
 .page_title_container {

@@ -1,79 +1,66 @@
 .discover_ul {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	width: 100vw;
-	padding-bottom: 80px;
-	padding-left: 0px;
-	margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100vw;
+  padding-bottom: 80px;
+  padding-left: 0px;
+  margin: 0 auto;
 }
 
 .discover_li {
-	display: flex;
-	text-decoration: none;
-	color: black;
-	width: 100%;
-}
-
-.discover_box {
-	color: black;
-	background-color: #eee;
-	margin: 20px;
-	margin-bottom: 10px;
-	margin-top: 10px;
-	height: 80px;
-	width: 100%;
-	padding: 10px;
-
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-radius: 10px;
-	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
+  display: flex;
+  text-decoration: none;
+  color: black;
+  width: 100%;
 }
 
 .connection_name {
-	font-size: 20px;
-	color: white;
-	margin: 0px;
-	margin-top: 10px;
+  font-size: 20px;
+  color: white;
+  margin: 0px;
+  margin-top: 10px;
 }
 
-.approve_button{
-	position: relative;
-	border: none;
-	border-radius: 0px;
-	background-color: black;
-	color: white;
+.approve_button {
+  position: relative;
+  border: none;
+  border-radius: 0px;
+  background-color: black;
+  color: white;
 }
 
-.discover_follow_button{
-	position: relative;
-	border: 2px solid rgb(112, 39, 161);
-	border-radius: 50%;
-	background-color: rgb(112, 39, 161);
-	color: white;
-	margin: 0px;
-	height: 30px;
-	width: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	cursor: pointer;
+.discover_follow_button {
+  position: relative;
+  border: 2px solid rgb(112, 39, 161);
+  border-radius: 50%;
+  background-color: rgb(112, 39, 161);
+  color: white;
+  margin: 0px;
+  height: 30px;
+  width: 30px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0px;
+  box-shadow: none;
 }
 
-.discover_follow_button:hover{
-	background-color: orange;
-	border: orange;
-	color: white;
+.discover_follow_button:hover {
+  background-color: orange;
+  border: orange;
+  color: white;
 }
 
 .user_visibility {
-	color: black;
+  color: black;
 }
 
 .avatar {
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }

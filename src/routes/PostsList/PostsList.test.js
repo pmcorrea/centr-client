@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import PostsList from './PostsList'
 
-describe(`PostList component`, () => {
+describe(`PostsList component`, () => {
   const props = {
     posts: [
       {
@@ -34,11 +34,16 @@ describe(`PostList component`, () => {
         "folderId": "b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1",
         "content": "Eum culpa odit."
       },
-    ]
+    ],
+    match: {
+      params: {
+        folderId: 0
+      }
+    }
   }
 
-  it('renders a .PostList by default', () => {
-    const wrapper = shallow(<PostsList />)
+  it('renders a .PostsList by default', () => {
+    const wrapper = shallow(<PostsList {...props} />)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
 

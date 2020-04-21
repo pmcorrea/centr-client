@@ -9,14 +9,14 @@ export default class PostWithContent extends Component {
 
 	render() {
 		const params = this.props.match.params.postId;
-		let posts = this.context.posts;
+		let {posts=[]} = this.context;
 		let post;
 
 		if (params) {
 			post = posts ? findPost(posts, parseInt(params)) : {};
 		}
 
-		return this.context.posts.length 
+		return posts.length 
 		? 
 			(
 				<section className="PostWithContent">

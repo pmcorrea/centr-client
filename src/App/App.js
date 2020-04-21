@@ -262,7 +262,7 @@ export default class App extends Component {
 	renderbuttons() {
 		return (
 		<>
-			<button className="home">
+			<button className="home icons">
 				<Link to="/feed">
 					{window.location.pathname === "/feed" 
 					? <FontAwesomeIcon className="icons" icon='home' size="2x" style={{color: "orange"}}/>
@@ -270,7 +270,7 @@ export default class App extends Component {
 				</Link>
 			</button>
 
-			<button className="following">
+			<button className="following icons">
 				<Link to="/following">
 					{this.state.requests ? 
 					<FontAwesomeIcon className="notifications" icon='circle' size="1x" />
@@ -282,7 +282,7 @@ export default class App extends Component {
 				</Link>
 			</button>
 
-			<button className="discover">
+			<button className="discover icons">
 				<Link to="/discover">
 					{window.location.pathname === "/discover" 
 					? <FontAwesomeIcon className="icons" icon='search' size="2x" style={{color: "orange"}}/>
@@ -290,7 +290,7 @@ export default class App extends Component {
 				</Link>
 			</button>
 
-			<button className="folder">
+			<button className="folder icons">
 				<Link to="/folders">
 					{window.location.pathname === "/folders" 
 					? <FontAwesomeIcon className="icons" icon='folder' size="2x" style={{color: "orange"}}/>
@@ -298,7 +298,7 @@ export default class App extends Component {
 				</Link>
 			</button>
 
-			<button className="account">
+			<button className="account icons">
 				<Link to="/account">
 					{window.location.pathname === "/account" 
 					? <FontAwesomeIcon className="icons" icon='user-circle' size="2x" style={{color: "orange"}}/>
@@ -317,7 +317,7 @@ export default class App extends Component {
 						{this.renderMainRoutes()}
 					</main>
 
-					{window.location.pathname === "/login" | window.location.pathname === "/register"
+					{window.location.pathname === "/" | window.location.pathname === "/register"
 					? ""
 					:
 						<div className='icons_bar'>

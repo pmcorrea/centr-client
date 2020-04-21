@@ -15,26 +15,7 @@
 	z-index: 100;
 }
 
-.input_field {
-	border-top: 0px;
-	border-right: 0px;
-	border-left: 0px;
-	border-bottom: 2px rgba(214, 214, 214, 0.63) solid;
-	margin-top: 10px;
-	color: black;
-	font-size: 20px;
-	padding: 8px;
-	width: 100%;
-	border-radius: 5px;
-	cursor: pointer;
-	border: 2px solid rgb(112, 39, 161);
-}
-
-.input_field::placeholder {
-	color: gray;
-}
-
-.register_button {
+/* .register_button {
 	width: 100%; 
 	padding: 15px;
 	font-size: 15px;
@@ -46,15 +27,15 @@
 	font-weight: bold;
 	cursor: pointer;
 	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
-}
+} */
 
-.register_button:hover {
+/* .register_button:hover {
 	color: orange;
-  }
+  } */
 
-.register_button:disabled {
+/* .register_button:disabled {
 	background-color: rgb(147, 122, 163);
-}
+} */
 
 #file-upload_label {
 	color: black;

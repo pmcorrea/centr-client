@@ -454,7 +454,7 @@ const AuthApiService = {
   },
 
   updateAvatar(url) {
-    return fetch(`${config.API_ENDPOINT}/updateavatar`, {
+    return fetch(`${config.API_ENDPOINT}/api/auth/updateavatar`, {
       method: 'POST',
       headers: {
           'content-type': 'application/json',

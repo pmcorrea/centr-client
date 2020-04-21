@@ -10,11 +10,16 @@ describe(`PostWithContent component`, () => {
       "name": "Dogs",
       "modified": "2019-01-03T00:00:00.000Z",
       "content": "Corporis accusamus placeat.\n \rUnde."
+    },
+    match: {
+      params: {
+        postId: 0
+      }
     }
   }
 
   it('renders a .PostWithContent by default', () => {
-    const wrapper = shallow(<PostWithContent />)
+    const wrapper = shallow(<PostWithContent {...props} />)
     expect(toJson(wrapper)).toMatchSnapshot()
   })
 
@@ -26,9 +31,11 @@ describe(`PostWithContent component`, () => {
 
   it(`splits the content by \\n or \\n\\r, with a p foreach`, () => {
     [{
-      post: { "content": "Content with n r.\n \rafter n r." }
+      post: { "content": "Content with n r.\n \rafter n r." },
+      match: {params:{postId:0}}
     }, {
-      post: { "content": "Content with n.\nafter." }
+      post: { "content": "Content with n.\nafter." },
+      match: {params:{postId:0}}
     }].forEach(props => {
       const content = shallow(<PostWithContent {...props} />)
         .find('PostWithContent__content')

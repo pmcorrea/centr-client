@@ -12,7 +12,9 @@ export default class PostsList extends Component {
 	static contextType = MainContext;
 
 	componentDidMount() {
-		this.context.getDataWithToken()
+		if(this.context.hasOwnProperty('getDataWithToken')){
+			this.context.getDataWithToken()
+		}
 	}
 
 	render() {

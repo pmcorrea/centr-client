@@ -165,20 +165,20 @@ export default class FollowingPage extends Component {
 							<li className="following_li" key={user['id']}>
 								<div className="following_box">
 									<img src={user.avatar} className="following_page_avatar" alt="avatar"></img>
-										<h2 className="connection_name">
-											{user['user_name']}
-										</h2>
+									<h2 className="connection_name">
+										{user['user_name']}
+									</h2>
 
-										<button className='unfollow_button' 
-											onClick={() => {this.deleteConnection(user['id'])}}>
-											<FontAwesomeIcon icon='minus' size="1x"/>
-										</button>
+									<button className='unfollow_button' 
+										onClick={() => {this.deleteConnection(user['id'])}}>
+										<FontAwesomeIcon icon='minus' size="1x"/>
+									</button>
 								</div>
 							</li>))
 						: ('')
 					}
 
-					{(this.state.showLoader )
+					{(this.state.showLoader)
 					? 
 						<div>
 							<img src="../../../assets/no_friends_unicorn.png" alt="sad unicorn with no friends" className="no_friends_img"/>

@@ -58,7 +58,7 @@ export default class FoldersView extends Component {
 							{folder.folder_name}
 						</NavLink>
 
-						<div>
+						<div className="nums_and_delete">
 							<span className="FoldersView__num-posts">
 								{countPostsForFolder(this.context.posts, folder.id)}
 							</span>

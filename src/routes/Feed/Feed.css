@@ -1,285 +1,335 @@
-.App__main>.feed_ul {
-	padding: 0px;
-	margin: 0 auto;
+.App__main > .feed_ul {
+  padding: 0px;
+  margin: 0 auto;
 }
 
 .feed_li {
-	color: black;
+  color: black;
 }
 
 .post_box {
-	color: black;
-	background-color: rgba(238, 238, 238, 0.63);
-	border: none;
-	border-radius: 10px 10px 0px 0px;
-	margin: 20px;
-	padding: 10px 20px;
-	border-bottom: 2px solid purple;
-	box-shadow: 0px 5px 20px rgba(128, 128, 128, 0.733);
+  color: black;
+  background-color: rgba(238, 238, 238, 0.63);
+  border: none;
+  border-radius: 10px 10px 0px 0px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border-bottom: 2px solid purple;
+  box-shadow: 0px 5px 5px rgba(128, 128, 128, 0.733);
+  max-width: 300px;
 }
 
-.post_title, .post_title>a {
-	font-size: 20px;
-	color: rgb(112, 39, 161);
-	margin: 0px;
-	margin-top: 15px;
-	text-decoration: none;
-	text-transform: capitalize;
+.post_title,
+.post_title > a {
+  font-size: 20px;
+  color: rgb(112, 39, 161);
+  margin: 0px;
+  margin-top: 15px;
+  text-decoration: none;
+  text-transform: capitalize;
 }
 
-.post_title, .post_title>a:hover {
-	color: orange;
+.post_title,
+.post_title > a:hover {
+  color: orange;
 }
 
 .post_user {
-	color: black;
-	font-size: 16px;
-	margin: 0px;
-	font-weight: 500;
+  color: black;
+  font-size: 16px;
+  margin: 0px;
+  font-weight: 500;
 }
 
 .post_modified {
-	color: gray;
-	font-size: 12px;
-	margin: 0px;
-	font-weight: 500;
+  color: gray;
+  font-size: 12px;
+  margin: 0px;
+  font-weight: 500;
 }
 
 .post_content {
-	color: black;
-	font-weight: 400;
-	font-size: 14px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-	line-height: 1.4;
+  color: black;
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 1.4;
 }
 
 .no_friends_img {
-	width: 200px;
-	background-color: transparent;
-	margin: 0 auto;
-	display: block;
-	margin-top: 100px;
+  width: 200px;
+  background-color: transparent;
+  margin: 0 auto;
+  display: block;
+  margin-top: 100px;
 }
 
 .no_friends_caption {
-	margin: 0 auto;
-	padding: 20px;
-	color: black;
-	display: block;
-	text-align: center;
-	font-size: 30px;
-	width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  color: black;
+  display: block;
+  text-align: center;
+  font-size: 30px;
+  width: 300px;
 }
 
-.post_subbox{
-	display: flex;
-	flex-direction: row;
-	justify-content: left;
-	align-items: center;
-	margin-bottom: 15px;
+.post_subbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.post_subbox_2{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	margin: 10px;
+.post_subbox_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
 }
 
-.feed_avatar{
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
+.feed_avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
-.section_headers{
-	margin: 0 auto;
-	font-size: 30px;
-	font-weight: 500;
-	color:  black;
-	font-family: 'Pacifico', cursive;
-	text-align: center;
-	display: block;
+.section_headers {
+  margin: 0 auto;
+  font-size: 30px;
+  font-weight: 500;
+  color: black;
+  font-family: "Pacifico", cursive;
+  text-align: center;
+  display: block;
 }
 
+.icons {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  padding: 0px;
+  display: block;
+  top: 0px;
+  box-shadow: none;
+}
+
+label,
+select {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 786 and smaller */
 @media only screen and (max-width: 768px) {
-	.icons_bar {
-		min-width: 100vw;
-		background-color: rgb(112, 39, 161);
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		z-index: 100;
-		position: fixed;
-		bottom: 0px;
-		padding: 10px;
-		height: 60px;
-		border-radius: 15px 15px 0px 0px;
-	}
+  .icons_bar {
+    width: 80vw;
+    background-color: rgb(112, 39, 161);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    position: fixed;
+    bottom: 0px;
+    padding: 10px;
+    height: 60px;
+    border-radius: 15px 15px 0px 0px;
+    left: 50%;
+    margin-left: -40vw;
+  }
 }
 
+/* 7869and larger */
+@media only screen and (min-width: 769px) {
+  .feed_ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80vw;
+  }
 
-@media only screen and (min-width: 768px) {
+  .feed_li {
+    list-style: none;
+  }
 
-	.feed_ul{
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-		width: 60vw;
-	}
+  .request_ul,
+  .following_ul,
+  .discover_ul,
+  .FolderView__List {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 
+  .post_box {
+    color: black;
+    background-color: rgba(238, 238, 238, 0.63);
+    border: none;
+    border-radius: 10px 10px 0px 0px;
+    margin: 20px;
+    padding: 10px 20px;
+    border-bottom: 2px solid purple;
+    box-shadow: 0px 5px 5px rgba(128, 128, 128, 0.733);
+    min-width: 200px;
+    max-width: 300px;
+  }
 
-	.feed_li {
-		width: 30vw;
-		list-style: none;
-	}
+  .discover_li {
+    width: auto;
+  }
 
-	.request_ul, .following_ul, .discover_ul, .FolderView__List{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
+  .FolderView__List {
+    margin: 0 auto;
+  }
 
-	.discover_li {
-		width: auto;
-	}
+  .request_li,
+  .following_li {
+    width: 30vw;
+    height: 10vh;
+    list-style: none;
+    margin-bottom: 5vh;
+  }
 
-	.FolderView__List {
-		margin: 0 auto;
-	}
+  .FoldersView {
+    width: 400px;
+    margin: 0 auto;
+  }
 
+  .profile_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+  }
 
-	.request_li, .following_li, .discover_box{
-		width: 30vw;
-		height: 10vh;
-		list-style: none;
-		margin-bottom: 5vh;
-	}
+  .AccountPage__forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-	.FoldersView {
-		width: 400px;
-		margin: 0 auto;
-	}
+  .LoginPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-	.profile_box {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		width: 350px;
-	}
-
-	.AccountPage__forms {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.LoginPage {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.LoginPage> input, .LoginPage> button {
+  /* .LoginPage> input, .LoginPage> button {
 		width: 200px;
-	}
+	} */
 
-	.LoginForm__login_button, .LoginForm__register_button {
-		width: 200px;
-		display: block;
-		margin: 0 auto;
-	}
-
-	.RegisterForm input, .RegisterForm>button {
+  /* .RegisterForm input, .RegisterForm>button {
 		width: 200px;
 		display: block;
 		margin: 0 auto;
 		margin-bottom: 10px;
-	}
+	} */
 
-	.registration__validation_box {
-		width: 300px;
+  .registration__validation_box {
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+
+  /* .AddPost__form>input, .AddPost__form>select, .AddPost__form>button, .AddPost__form>textarea, .AddPost__form>label {
 		display: block;
-		margin: 0 auto;
-		margin-bottom: 10px;
-	}
-
-	.AddPost__form>input, .AddPost__form>select, .AddPost__form>button, .AddPost__form>textarea, .AddPost__form>label {
-		display: block;
 		width: 300px;
 		margin: 0 auto;
-	}
+	} */
 
-	.AddPost__form{
-		margin-top: 10vh;
-	}
+  .AddPost__form > select,
+  .AddPost__form > textarea,
+  .AddPost__form > label {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+  }
 
-	.AddPost__form>label{
-		margin-top: 20px;
-	}
+  .AddPost__form {
+    margin-top: 10vh;
+  }
 
-	.AddPost__form>textarea{
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
+  .AddPost__form > label {
+    margin-top: 20px;
+  }
 
-	.AddFolder__form>input, .AddFolder__form>select, .AddFolder__form>button, .AddFolder__form>textarea, .AddFolder__form>label {
+  .AddPost__form > textarea {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* .AddFolder__form>input, .AddFolder__form>select, .AddFolder__form>button, .AddFolder__form>textarea, .AddFolder__form>label {
 		display: block;
 		width: 300px;
 		margin: 0 auto;	
 		margin-bottom: 20px;	
-	}
+	} */
 
-	.PublicPostRoute {
-		width: 60vw;
-		margin: 0 auto;
-		margin-top: 5vh;
-	}
+  .AddFolder__form > select,
+  .AddFolder__form > textarea,
+  .AddFolder__form > label {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
 
-	.PostsList {
-		width: 600px;
-		margin: 0 auto;
-	}
+  .PublicPostRoute {
+    width: 60vw;
+    margin: 0 auto;
+    margin-top: 5vh;
+  }
 
-	.Post {
-		width: auto;
-	}
+  .PostsList {
+    width: 600px;
+    margin: 0 auto;
+  }
 
-	.PostWithContent {
-		width: 600px;
-		margin: 0 auto;
-	}
+  .Post {
+    width: auto;
+  }
 
-	.EditPost__form_container {
-		width: 600px;
-		margin: 0 auto;
-	}
+  .PostWithContent {
+    width: 600px;
+    margin: 0 auto;
+  }
 
-	.EditPost__form {
-		width: auto;
-	}
+  .EditPost__form_container {
+    width: 600px;
+    margin: 0 auto;
+  }
 
-	.icons_bar {
-		width: 70vw;
-		margin: 0 auto;
-		background-color: rgb(112, 39, 161);
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		z-index: 100;
-		bottom: 0px;
-		padding: 10px;
-		height: 60px;
-		border-radius: 15px 15px 0px 0px;
-		position: fixed;
-		left: 50%;
-		margin-left: -35vw;
-	}
+  .EditPost__form {
+    width: auto;
+  }
+
+  .icons_bar {
+    width: 80vw;
+    min-width: 300px;
+    margin: 0 auto;
+    background-color: rgb(112, 39, 161);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    bottom: 0px;
+    padding: 10px;
+    height: 60px;
+    border-radius: 15px 15px 0px 0px;
+    position: fixed;
+    left: 50%;
+    margin-left: -40vw;
+  }
 }
