@@ -1,7 +1,7 @@
 .AddFolder__form_container {
   display: flex;
-	flex-direction: column;
-	width: 100vw;
+  flex-direction: column;
+  width: 100vw;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -9,12 +9,12 @@
   background-color: white;
 }
 
-.AddFolder__form{
-  width: 80vw;
+.AddFolder__form {
+  width: 300px;
   height: 50vh;
   margin: 0 auto;
   background-color: white;
-  color: black
+  color: black;
 }
 
 /* .AddFolder__input {
