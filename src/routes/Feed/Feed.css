@@ -318,19 +318,11 @@ select {
     width: 600px;
     margin: 0 auto;
   }
-
-  .EditPost__form_container {
-    width: 600px;
-    margin: 0 auto;
-  }
-
-  .EditPost__form {
-    width: auto;
-  }
-
+  
   .icons_bar {
     width: 80vw;
     min-width: 300px;
+    max-width: 350px;
     margin: 0 auto;
     background-color: rgb(112, 39, 161);
     display: flex;
@@ -344,6 +336,6 @@ select {
     border-radius: 15px 15px 0px 0px;
     position: fixed;
     left: 50%;
-    margin-left: -40vw;
+    margin-left: -175px;
   }
 }
