@@ -10,17 +10,17 @@ export default class PublicPost extends Component {
 
 	handleDeletePost(value) {
 		AuthApiService.handleDeletePost(value)
-		.then(result => {
-			this.context.getDataWithToken()
-		})
-		.catch(error => {
-			console.error(error)
-		})  
+			.then(result => {
+				this.context.getDataWithToken()
+			})
+			.catch(error => {
+				console.error(error)
+			})
 	}
 
 
 	render() {
-		let someDateString = this.props.modified 
+		let someDateString = this.props.modified
 		let someDate = new Date(someDateString)
 		someDate = someDate.toLocaleString()
 

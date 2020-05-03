@@ -45,19 +45,19 @@ export default class App extends Component {
 			setAuthToken: authToken => this.setState({ authToken }),
 			getDataWithToken: () => {
 				let token = TokenHelpers.getAuthToken();
-				
+
 				AuthApiService.postLogin({
 					user_name: null,
 					password: null,
 					token: token
 				})
-				.then(res => {
-					this.state.setFolders(res["folders"])
-					this.state.setPosts(res["posts"])
-				})
-				.catch(function(error) {
-					console.error(error)
-				})
+					.then(res => {
+						this.state.setFolders(res["folders"])
+						this.state.setPosts(res["posts"])
+					})
+					.catch(function (error) {
+						console.error(error)
+					})
 			},
 			setPosts: posts => {
 				this.setState({ posts })
@@ -67,20 +67,20 @@ export default class App extends Component {
 			},
 			setRequests: () => {
 				AuthApiService.getFollowRequests()
-				.then(followRequests => {
-					if (followRequests.length !== 0) {
-						this.setState({
-							requests: true
-						})
-					} else {
-						this.setState({
-							requests: false
-						})
-					}
-				})
-				.catch(error => {
-					this.setState({ error }, () => console.log(this.state.error))
-				})
+					.then(followRequests => {
+						if (followRequests.length !== 0) {
+							this.setState({
+								requests: true
+							})
+						} else {
+							this.setState({
+								requests: false
+							})
+						}
+					})
+					.catch(error => {
+						this.setState({ error }, () => console.log(this.state.error))
+					})
 			}
 		}
 	}
@@ -89,223 +89,223 @@ export default class App extends Component {
 
 	setConnections() {
 		AuthApiService.getConnections()
-		.then(connections => {
-			if (connections) {
-				this.setState({
-					connections: connections
-				}, () => this.setPublicPosts())
-			}
+			.then(connections => {
+				if (connections) {
+					this.setState({
+						connections: connections
+					}, () => this.setPublicPosts())
+				}
 
-		})
-		.catch(error => {
-			this.setState({ error }, () => console.log(this.state.error))
-		})
-  }
-
-	setPublicPosts() {
-    
-		let connections = this.state.connections
-		let connectionsIds = connections.map(x => {
-		  return x.id
-		} )
-	
-		AuthApiService.getPublicPosts(connectionsIds)
-		.then(result => {
-		  this.setState({
-			publicPosts: result
-		  })
-		})
-		.catch(error => {
+			})
+			.catch(error => {
 				this.setState({ error }, () => console.log(this.state.error))
 			})
-		
-	  }
+	}
+
+	setPublicPosts() {
+
+		let connections = this.state.connections
+		let connectionsIds = connections.map(x => {
+			return x.id
+		})
+
+		AuthApiService.getPublicPosts(connectionsIds)
+			.then(result => {
+				this.setState({
+					publicPosts: result
+				})
+			})
+			.catch(error => {
+				this.setState({ error }, () => console.log(this.state.error))
+			})
+
+	}
 
 	// Lifecycle
 	componentDidMount() {
-		this.state.getDataWithToken()
 		this.setConnections()
+		this.state.getDataWithToken()
 		this.state.setRequests()
 	}
 
 	// Render Methods
 	renderMainRoutes() {
 		return (
-		<>
-			{["/myposts", "/folder/:folderId"].map(path => (
+			<>
+				{["/myposts", "/folder/:folderId"].map(path => (
+					<Route
+						key={path}
+						path={path}
+						render={routeProps => {
+							if (!TokenHelpers.hasAuthToken()) {
+								return <Redirect to="/login" />
+							}
+							return <PostsList {...routeProps} />
+						}}
+					/>
+				))}
+
 				<Route
-					key={path}
-					path={path}
+					path="/folders"
 					render={routeProps => {
 						if (!TokenHelpers.hasAuthToken()) {
 							return <Redirect to="/login" />
 						}
-						return <PostsList {...routeProps} />
+						return <FoldersView {...routeProps} />
 					}}
 				/>
-			))}
 
-			<Route
-				path="/folders"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <FoldersView {...routeProps} />
-				}}
-			/>
+				<Route
+					path="/add-folder"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <AddFolderForm {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/add-folder"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <AddFolderForm {...routeProps} />
-				}}
-			/>
+				<Route
+					path="/post/:postId"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <PostWithContent {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/post/:postId"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <PostWithContent {...routeProps} />
-				}}
-			/>
+				<Route
+					path="/add-post"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <AddPostForm {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/add-post"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <AddPostForm {...routeProps} />
-				}}
-			/>
+				<Route
+					path="/edit/:postId"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <EditPost {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/edit/:postId"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <EditPost {...routeProps} />
-				}}
-			/>
+				<Route
+					path="/feed"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <Feed {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/feed"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <Feed {...routeProps} />
-				}}
-			/> 
+				<Route
+					path="/discover"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <DiscoverPage {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/discover"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <DiscoverPage {...routeProps} />
-				}}
-			/>  
+				<Route
+					path="/following"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <FollowingPage {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/following"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <FollowingPage {...routeProps} />
-				}}
-			/>  
+				<Route
+					path="/account"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <AccountPage {...routeProps} />
+					}}
+				/>
 
-			<Route
-				path="/account"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <AccountPage {...routeProps} />
-				}}
-			/>
+				<Route
+					path="/"
+					exact
+					component={LoginPage}
+				/>
 
-			<Route 
-				path="/" 
-				exact
-				component={LoginPage} 
-			/>
+				<Route
+					path="/register"
+					component={RegisterPage}
+				/>
 
-			<Route 
-				path="/register" 
-				component={RegisterPage} 
-			/>
-
-			<Route
-				path="/PublicPost/:postId"
-				render={routeProps => {
-					if (!TokenHelpers.hasAuthToken()) {
-						return <Redirect to="/login" />
-					}
-					return <PublicPostRoute {...routeProps}/>
-				}}
-			/>
-		</>
+				<Route
+					path="/PublicPost/:postId"
+					render={routeProps => {
+						if (!TokenHelpers.hasAuthToken()) {
+							return <Redirect to="/login" />
+						}
+						return <PublicPostRoute {...routeProps} />
+					}}
+				/>
+			</>
 		);
 	}
 
 	renderbuttons() {
 		return (
-		<>
-			<button className="home icons">
-				<Link to="/feed">
-					{window.location.pathname === "/feed" 
-					? <FontAwesomeIcon className="icons" icon='home' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='home' size="2x" />}
-				</Link>
-			</button>
+			<>
+				<button className="home icons">
+					<Link to="/feed">
+						{window.location.pathname === "/feed"
+							? <FontAwesomeIcon className="icons" icon='home' size="2x" style={{ color: "orange" }} />
+							: <FontAwesomeIcon className="icons" icon='home' size="2x" />}
+					</Link>
+				</button>
 
-			<button className="following icons">
-				<Link to="/following">
-					{this.state.requests ? 
-					<FontAwesomeIcon className="notifications" icon='circle' size="1x" />
-					: (' ')}
-					
-					{window.location.pathname === "/following" 
-					? <FontAwesomeIcon className="icons" icon='user-friends' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='user-friends' size="2x" />}
-				</Link>
-			</button>
+				<button className="following icons">
+					<Link to="/following">
+						{this.state.requests ?
+							<FontAwesomeIcon className="notifications" icon='circle' size="1x" />
+							: (' ')}
 
-			<button className="discover icons">
-				<Link to="/discover">
-					{window.location.pathname === "/discover" 
-					? <FontAwesomeIcon className="icons" icon='search' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='search' size="2x" />}
-				</Link>
-			</button>
+						{window.location.pathname === "/following"
+							? <FontAwesomeIcon className="icons" icon='user-friends' size="2x" style={{ color: "orange" }} />
+							: <FontAwesomeIcon className="icons" icon='user-friends' size="2x" />}
+					</Link>
+				</button>
 
-			<button className="folder icons">
-				<Link to="/folders">
-					{window.location.pathname === "/folders" 
-					? <FontAwesomeIcon className="icons" icon='folder' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='folder' size="2x" />}
-				</Link>
-			</button>
+				<button className="discover icons">
+					<Link to="/discover">
+						{window.location.pathname === "/discover"
+							? <FontAwesomeIcon className="icons" icon='search' size="2x" style={{ color: "orange" }} />
+							: <FontAwesomeIcon className="icons" icon='search' size="2x" />}
+					</Link>
+				</button>
 
-			<button className="account icons">
-				<Link to="/account">
-					{window.location.pathname === "/account" 
-					? <FontAwesomeIcon className="icons" icon='user-circle' size="2x" style={{color: "orange"}}/>
-					: <FontAwesomeIcon className="icons" icon='user-circle' size="2x" />}
-				</Link>
-			</button>
-		</>
+				<button className="folder icons">
+					<Link to="/folders">
+						{window.location.pathname === "/folders"
+							? <FontAwesomeIcon className="icons" icon='folder' size="2x" style={{ color: "orange" }} />
+							: <FontAwesomeIcon className="icons" icon='folder' size="2x" />}
+					</Link>
+				</button>
+
+				<button className="account icons">
+					<Link to="/account">
+						{window.location.pathname === "/account"
+							? <FontAwesomeIcon className="icons" icon='user-circle' size="2x" style={{ color: "orange" }} />
+							: <FontAwesomeIcon className="icons" icon='user-circle' size="2x" />}
+					</Link>
+				</button>
+			</>
 		)
 	}
 
@@ -318,10 +318,10 @@ export default class App extends Component {
 					</main>
 
 					{window.location.pathname === "/" | window.location.pathname === "/register"
-					? ""
-					:
+						? ""
+						:
 						<div className='icons_bar'>
-						{this.renderbuttons()}
+							{this.renderbuttons()}
 						</div>
 					}
 				</div>
