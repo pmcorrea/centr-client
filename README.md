@@ -6,7 +6,7 @@
 Documentation of your API.
 
 ## Screenshots
-![alt text](https://res.cloudinary.com/pmcorrea/image/upload/v1588611914/Center%20Screenshots/login_rohuhm.jpg "Login")
+![alt text](https://res.cloudinary.com/pmcorrea/image/upload/v1588611914/Center%20Screenshots/login_rohuhm.jpg "Login" | width=300)
 ![alt text](https://res.cloudinary.com/pmcorrea/image/upload/v1588611915/Center%20Screenshots/feed_ryucqo.jpg "Feed")
 ![alt text](https://res.cloudinary.com/pmcorrea/image/upload/v1588611915/Center%20Screenshots/post_qoftkz.jpg "Post")
 ![alt text](https://res.cloudinary.com/pmcorrea/image/upload/v1588611914/Center%20Screenshots/discover_zvmxzm.jpg "Discover")
