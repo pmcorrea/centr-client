@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App test suite renders the snapshot 1`] = `
+<Fragment>
+  <p
+    className="section_headers"
+  >
+    Feed
+  </p>
+  <ul
+    className="feed_ul"
+  />
+</Fragment>
+`;

@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PostList component renders a .PostList by default 1`] = `""`;
-
-exports[`PostList component renders a Post in ul for each posts in array 1`] = `null`;
-
 exports[`PostsList component renders a .PostsList by default 1`] = `""`;
 
 exports[`PostsList component renders a Post in ul for each posts in array 1`] = `null`;

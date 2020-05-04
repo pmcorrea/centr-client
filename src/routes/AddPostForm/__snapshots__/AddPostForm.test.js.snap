@@ -12,6 +12,30 @@ exports[`AddPostForm component renders a form.AddPostForm by default 1`] = `
       className="AddPost__form"
       onSubmit={[Function]}
     >
+      <button
+        className="go_back_button"
+        onClick={[Function]}
+      >
+        <FontAwesomeIcon
+          border={false}
+          className="arrow-alt-circle-left"
+          fixedWidth={false}
+          flip={null}
+          icon="arrow-alt-circle-left"
+          inverse={false}
+          listItem={false}
+          mask={null}
+          pull={null}
+          pulse={false}
+          rotation={null}
+          size="3x"
+          spin={false}
+          swapOpacity={false}
+          symbol={false}
+          title=""
+          transform={null}
+        />
+      </button>
       <input
         className="AddPost__input"
         id="post_input_field"
@@ -87,6 +111,30 @@ exports[`AddPostForm component renders the AddPostForm given props 1`] = `
       className="AddPost__form"
       onSubmit={[Function]}
     >
+      <button
+        className="go_back_button"
+        onClick={[Function]}
+      >
+        <FontAwesomeIcon
+          border={false}
+          className="arrow-alt-circle-left"
+          fixedWidth={false}
+          flip={null}
+          icon="arrow-alt-circle-left"
+          inverse={false}
+          listItem={false}
+          mask={null}
+          pull={null}
+          pulse={false}
+          rotation={null}
+          size="3x"
+          spin={false}
+          swapOpacity={false}
+          symbol={false}
+          title=""
+          transform={null}
+        />
+      </button>
       <input
         className="AddPost__input"
         id="post_input_field"

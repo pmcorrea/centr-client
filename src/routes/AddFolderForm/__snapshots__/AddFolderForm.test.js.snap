@@ -2,6 +2,10 @@
 
 exports[`AddFolderForm component renders a form.AddFolderForm by default 1`] = `
 <Fragment>
+  <button
+    className="go_back_button"
+    onClick={[Function]}
+  />
   <div
     className="AddFolder__form_container"
   >
@@ -9,6 +13,31 @@ exports[`AddFolderForm component renders a form.AddFolderForm by default 1`] = `
       className="AddFolder__form"
       onSubmit={[Function]}
     >
+      <button
+        className="go_back_button"
+        onClick={[Function]}
+        type="button"
+      >
+        <FontAwesomeIcon
+          border={false}
+          className="arrow-alt-circle-left"
+          fixedWidth={false}
+          flip={null}
+          icon="arrow-alt-circle-left"
+          inverse={false}
+          listItem={false}
+          mask={null}
+          pull={null}
+          pulse={false}
+          rotation={null}
+          size="3x"
+          spin={false}
+          swapOpacity={false}
+          symbol={false}
+          title=""
+          transform={null}
+        />
+      </button>
       <input
         className="AddFolder__input"
         id="post_input_field"
@@ -29,6 +58,10 @@ exports[`AddFolderForm component renders a form.AddFolderForm by default 1`] = `
 
 exports[`AddFolderForm component renders the AddFolderForm given props 1`] = `
 <Fragment>
+  <button
+    className="go_back_button"
+    onClick={[Function]}
+  />
   <div
     className="AddFolder__form_container"
   >
@@ -36,6 +69,31 @@ exports[`AddFolderForm component renders the AddFolderForm given props 1`] = `
       className="AddFolder__form"
       onSubmit={[Function]}
     >
+      <button
+        className="go_back_button"
+        onClick={[Function]}
+        type="button"
+      >
+        <FontAwesomeIcon
+          border={false}
+          className="arrow-alt-circle-left"
+          fixedWidth={false}
+          flip={null}
+          icon="arrow-alt-circle-left"
+          inverse={false}
+          listItem={false}
+          mask={null}
+          pull={null}
+          pulse={false}
+          rotation={null}
+          size="3x"
+          spin={false}
+          swapOpacity={false}
+          symbol={false}
+          title=""
+          transform={null}
+        />
+      </button>
       <input
         className="AddFolder__input"
         id="post_input_field"

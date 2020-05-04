@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App test suite renders the snapshot 1`] = `
+<Fragment>
+  <div
+    className="registration__container"
+  >
+    <h1>
+      REGISTER
+    </h1>
+    <img
+      alt="background"
+      className="bg_image"
+      src="login_background.png"
+    />
+    <div
+      className="RegisterForm__form_contianer"
+    >
+      <form
+        className="RegisterForm"
+        id="form_register"
+        onSubmit={[Function]}
+      >
+        <div
+          role="alert"
+        />
+        <input
+          className="input_field"
+          id="LoginForm__user_name"
+          name="user_name"
+          onChange={[Function]}
+          placeholder="username"
+          required={true}
+          style={
+            Object {
+              "borderColor": "red",
+              "textDecoration": "line-through",
+            }
+          }
+        />
+        <input
+          className="input_field"
+          id="LoginForm__password"
+          name="password"
+          onChange={[Function]}
+          placeholder="password"
+          required={true}
+          style={
+            Object {
+              "borderColor": "red",
+            }
+          }
+          type="password"
+        />
+        <input
+          className="input_field"
+          id="LoginForm__password_confirm"
+          name="password_confirm"
+          onChange={[Function]}
+          placeholder="password"
+          required={true}
+          style={
+            Object {
+              "borderColor": "red",
+            }
+          }
+          type="password"
+        />
+        <button
+          className="register_button"
+          disabled={true}
+          type="submit"
+        >
+          Register
+        </button>
+        <div
+          className="registration__validation_box"
+          role="alert"
+        >
+          <p
+            className="validation_rules"
+          >
+            Password must include:
+          </p>
+          <p
+            className="validation_rules"
+          >
+            8 characters minimum, no spaces
+          </p>
+          <p
+            className="validation_rules"
+          >
+            Uppercase and lowercase letters
+          </p>
+          <p
+            className="validation_rules"
+          >
+            Special symbol and numbers
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</Fragment>
+`;
