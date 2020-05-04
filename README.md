@@ -3,7 +3,7 @@
 ## Live Link : https://centr.pmcorrea.now.sh
 
 ## API
-Documentation of your API.
+This is the frontend repo for Centr.
 
 ## Screenshots
 <img src="https://res.cloudinary.com/pmcorrea/image/upload/v1588611914/Center%20Screenshots/login_rohuhm.jpg" alt="Login" width="300" height="504">
